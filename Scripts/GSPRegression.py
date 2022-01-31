@@ -37,7 +37,9 @@ def GSP_Regression(a, b, Signal, P, tol, max_itr):
     R = np.zeros(Y.shape)
     I = np.matrix(np.identity(Signal.shape[0]))
     L = Problem1(a, b, Y)
+    count = 0
     for i in range(1,max_itr):
+        count = count + 1
         temp = L
         
         # Closed form solution given by Dong et al.
@@ -51,6 +53,9 @@ def GSP_Regression(a, b, Signal, P, tol, max_itr):
         
         # Check if we are within the tolerance
         if(np.all(abs(temp - L) < tol)):
-                return np.asarray(L)
-    b = (inv(P.transpose()@P)@P.transpose)@np.matrix.flatten(R, 'F')
-    return [np.asarray(L), Y, b]
+                break
+    #b = (inv(P.transpose()@P)@P.transpose)@np.matrix.flatten(R, 'F')
+    #return [np.asarray(L), Y, b]
+    avg_dif = np.mean(temp - L)
+    print('Solution reached in ' + str(count) + ' iterations.')
+    return [np.asarray(L), Y]
