@@ -11,9 +11,6 @@ cls: IEEEtran.cls
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Literature Review
-
-Data often has  an underlying structure or Geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a the underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some something constraints @xia2021graph @stankovic2019vertex @ortega2018graph . The subset of Graph Learning that focuses on Graph Signal Processing Based Methods deals with sampling, graph recovery and learning topological structure @xia2021graph . The methods for learning topolological structure fall into the categories of supervised models @dong2016learning @tugnait2021sparse @pu2021learning @saboksayr2021accelerated, and unsupervised machine learning techniques @pu2021kernel @kalofolias2016learn @venkitaraman2019predicting . In all of these models, signals are assumed to follow multivariate gaussian distributions, but there has been little to know literature exploring learing network topology from binomial signals. 
 
 
 ## Graph Learning: A Survey

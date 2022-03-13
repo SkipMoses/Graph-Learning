@@ -12,7 +12,7 @@
 <meta name="author" content="Skip Moses" />
 
 
-<title>Article Summaries</title>
+<title>Draft: Learning Laplacian from Binomial Signals</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -358,71 +358,116 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Article Summaries</h1>
+<h1 class="title toc-ignore">Draft: Learning Laplacian from Binomial Signals</h1>
 <h4 class="author">Skip Moses</h4>
-<h4 class="date">2/26/2022</h4>
+<h4 class="date">3/12/2022</h4>
 
 </div>
 
 
-<div id="graph-learning-a-survey" class="section level2">
-<h2>Graph Learning: A Survey</h2>
-<div id="feng-xia-ke-sun-shuo-yu-abdul-aziz" class="section level4">
-<h4>Feng Xia, Ke Sun , Shuo Yu, Abdul Aziz,</h4>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints <span class="citation">Xia et al. (2021)</span> <span class="citation">Stankovic et al. (2019)</span> <span class="citation">Ortega et al. (2018)</span> . A subset of graph learning that focuses on graph signal processing based methods deals with sampling, graph recovery and learning topological structure <span class="citation">Xia et al. (2021)</span>.</p>
+<p>The methods for learning topological structure fall into the categories of regression like models <span class="citation">Dong et al. (2016)</span>, <span class="citation">Tugnait (2021)</span>, <span class="citation">Pu, Cao, et al. (2021)</span>, and <span class="citation">Saboksayr and Mateos (2021)</span>, and machine learning techniques <span class="citation">Pu, Chau, et al. (2021)</span>, <span class="citation">Kalofolias (2016)</span>, and <span class="citation">Venkitaraman, Chatterjee, and Händel (2019)</span> . In all of these models, signals are assumed to follow multivariate gaussian distributions, but there has been little exploration in learning a network from binomial signals.</p>
 </div>
-<div id="liangtian-wan-shirui-pan-and-huan-liu" class="section level4">
-<h4>Liangtian Wan, Shirui Pan , and Huan Liu</h4>
-<p>Graphs, or networks, can model numerous real-world relationships. For example, social networks, biological networks, patent networks, traffic networks, citation networks, and communication networks. In all of these cases, the graphs are known a priori. Recently, Graph Learning has become a popular approach to extracting meaningful relationships from data sets where the graph is not otherwise known.</p>
-<p>In essence, graph learning is a form of machine learning on graphs. Most methods of graph learning take the features of the graph into a vector space with the same dimensions. This is accomplished without projecting the graph into a low dimensional space. The representation of the graph can be utilized without an explicit embedding. This is what makes graph learning such a powerful technique.</p>
-<p>Graph learning can be partitioned into four fields:</p>
-<ol style="list-style-type: decimal">
-<li>Graph Signal Processing Based Methods</li>
-</ol>
-<p>Deals with sampling, graph recovery and learning topological structure.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Random Walk Based Methods</li>
-</ol>
-<p>Includes structure-based random walk, structure and node information based random walk, random walk in heterogeneous networks and random walk in time-varying networks.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Matrix Factorization Based Methods</li>
-</ol>
-<p>Deals with Laplacian matrix factorization and vertex proximity matrix factorization.</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Deep Learning Based Methods</li>
-</ol>
-<p>Includes graph convolutional networks, graph attention networks, graph auto-encoder, graph generative networks and graph spatial-temporal networks.</p>
-<p>The main difference in these four methods/techniques is in their model architecture.</p>
-<p>Traditional signal processing has been very successful in analyzing signals from a regular data domain. Graphs represent a kind of irregular data; this makes appling tradional methods hard. Thus, the main task of GSP is to generalize traditional signal processing techinques into this irregular domain. There are two main approaches to representing a graph in GSP; Adjacency based GSP and Laplacian based GSP. Adjacency based techniques are grounded in algebraic signal processin (ASP). Laplacian based techniques are derived from spectral graph theory. The Laplacian (or Adjacency matrix) take on the roll of a shift operator in traditional signal processing.</p>
+<div id="related-work" class="section level2">
+<h2>Related Work</h2>
+<p>Dong et al. propose a modified Factor Analysis model in <span class="citation">Dong et al. (2016)</span> for learning a valid graph laplacian. The model proposed is given by <span class="math display">\[x = \chi h + \mu_x + \epsilon\]</span> where <span class="math inline">\(h \in \mathbb{R}^N\)</span> is the latent variable, <span class="math inline">\(\mu_x \in \mathbb{R}^N\)</span> mean of <span class="math inline">\(x\)</span>. The noise term <span class="math inline">\(\epsilon\)</span> is assumed to follow a multivariate Gaussian distribution with mean zero and covariance <span class="math inline">\(\sigma_\epsilon^2I_N\)</span>. The key difference from traditional factor analysis is the choice of <span class="math inline">\(\chi\)</span> as a valid eigenvector matrix for a graph laplacian. Finding a maximum apriori estimate of <span class="math inline">\(h\)</span> reduces to solving the optimization problem</p>
+<p><span class="math display">\[\begin{equation}
+    \label{eq:dongmodel}
+    \begin{aligned}
+        \min_{L \in \mathbb{R}^{N\times N}, \phantom{..} Y \in \mathbb{R}^{N\times P}} ||X&amp;-Y||_F^2 + \alpha \text{tr}(Y^TLY) + \beta||L||_F^2 \\
+        \textrm{s.t.}&amp; \quad \text{tr}(L) = N, \\
+        &amp;\quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+        &amp;\quad L\cdot \textbf{1} = \textbf{0} \\
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>Because  is not jointly convex, Dong et al. employ an alternating minimization scheme to solve the problem. Initially, set <span class="math inline">\(Y = X\)</span> and we find a suitable <span class="math inline">\(L\)</span> by solving <span class="math display">\[\begin{equation}
+    \label{eq:dong:prob1}
+    \begin{aligned}
+        \min_L       &amp; \phantom{..} \alpha \text{tr}(Y^TLY) + \beta ||L||_F^2, \\
+        \textrm{s.t.}&amp; \quad \text{tr}(L) = N,\\
+                     &amp; \quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+                     &amp; \quad L\cdot \textbf{1} = \textbf{0}
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>Next, using <span class="math inline">\(L\)</span> from the first step we solve <span class="math display">\[\begin{equation}
+    \label{eq:dong:prob2}
+    \begin{aligned}
+        \min_Y \phantom{..} ||X-Y||_F^2 + \alpha \text{tr}(Y^TLY)
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>Both  and  can be cast as convex optimization problems. Specifically,  can be solved with the method of alternating direction of multipliers (ADMM). The model is applied to both synthetic and real world data, and compared to a technique used in machine learning that is similar to sparse inverse covariance estimation of Gaussian Markov Random Field models. Four evaluation criteria were used to evaluate the performance of the framework: <span class="math inline">\(\textit{Precision, Recall, F-measure,}\)</span> and <span class="math inline">\(\textit{Normalized Mutual Information (NMI)}\)</span>. Kalofolias cites two weaknesses to this model: The use of the Frobenius norm is not amenable to interpretation, and it requires four constraints on the solution space <span class="citation">Kalofolias (2016)</span>.</p>
+<p>In <span class="citation">Kalofolias (2016)</span>, Kalofolias provides complementary ideas to improve on the work of Dong et al. In particular, Kalofolias considers the more natural problem of leaning the weighted adjacency matrix <span class="math inline">\(A\)</span>, and show an extra smoothness condition leads to the learned graph being sparse. Define, <span class="math inline">\(Z\)</span> to be the matrix of pairwise distances of the signal, namely, <span class="math inline">\(Z_{i,j} = ||x_i - x_j||^2\)</span>. Under this definition we can recast our smoothness term as <span class="math display">\[\begin{equation}
+    \label{eq:kalotransform}
+    \text{tr}(X^TLX) = \frac{1}{2} \text{tr}(AZ) = \frac{1}{2}  ||A\circ Z||_{1,1};
+\end{equation}\]</span> where <span class="math inline">\(\circ\)</span> is the hadamard product and <span class="math inline">\(||A||_{1,1}\)</span> is the element wise 1-norm. We can now recast  as <span class="math display">\[\begin{equation}
+    \label{eq:GLP}
+    \begin{aligned}
+        \min_A       &amp; \phantom{..} ||A\circ Z||_{1,1} + f(A), \\
+        \textrm{s.t.}&amp; \quad ||A||_{1,1} = N,\\
+        &amp; \quad A_{i,j} = A_{j,i} \geq 0, \phantom{..} i \neq j, \\
+        &amp; \quad \text{diag}(A) = \textbf{0}
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>The model proposed by Kalofolias is given by specifying <span class="math inline">\(f(A) = -\alpha \textbf{1}^T\log(W\textbf{1}) + \beta||W||_F^2\)</span>. An appealing feature of this model is the fact that for any <span class="math inline">\(\lambda &gt;0\)</span> and solution <span class="math inline">\(F(Z,\alpha, \beta)\)</span> the following equalities hold <span class="math display">\[\begin{equation}
+    \label{eq:KalofoliasEquality}
+    F(Z, \alpha, \beta) = \lambda F(Z, \frac{\alpha}{\lambda}, \beta \lambda) = \alpha F(Z, 1, \alpha \beta).
+\end{equation}\]</span> This means we can fix a scale <span class="math inline">\(||A|| = s\)</span> for an arbitrary norm and solve for <span class="math inline">\(\beta\)</span> in  with <span class="math inline">\(\alpha = 1\)</span>, and then re-normalize our solution. Furthermore, the log barrier term only acts on the degrees. This provides an advantage over the model , because it promotes connectivity in the learned graph. Kalofolias goes onto show  can be solved efficiently for many choices of <span class="math inline">\(f(A)\)</span> via primal dual algorithms.</p>
+<p>In <span class="citation">Venkitaraman, Chatterjee, and Händel (2019)</span> machine learning concepts are employed to learn a graph from training data. The goal is given some data <span class="math inline">\({x_n}\)</span> to model a target <span class="math inline">\(t_n\)</span> by the linear basis model for regression <span class="math display">\[\begin{equation}
+    \label{eq:LinearModel}
+    y_n = \textbf{W}^T\phi(x_n),
+\end{equation}\]</span> where <span class="math inline">\(\phi(x_n)\)</span> is some known function and <span class="math inline">\(\textbf{W}\)</span> denotes the regression coefficient matrix. Venkitarman et al. assume only the target <span class="math inline">\(y_n\)</span> is smooth over the graph. The input <span class="math inline">\(x_n\)</span> does not have to be a signal over the graph and can even be agnostic to a graph. The cost function for the model when the underlying graph is known is given by <span class="math display">\[\begin{equation}
+    \label{eq:cost}
+    C(\textbf{W}) = \sum_{n=1}^N\left( ||t_n - y_n||_2^2 + \beta y_n^TLy_n \right) + \alpha \text{tr}(\textbf{W}^T\textbf{W}).
+\end{equation}\]</span> Next, it is shown KRG induces a smoothing effect on the target by a shrinkage in the direction of eigenvectors of <span class="math inline">\(L\)</span> that have eigenvalues less than <span class="math inline">\(\alpha\)</span>. In order to learn an unknown graph, a term is added to the cost function <span class="math inline">\(C(\textbf{W}, L) = C(\textbf{W}) + \nu \text{tr}(L^TL)\)</span>. Venkitarman et al. use the model to predict temperature using air-pressure observations collected in Sweden, next day temperature from current day in Sweden, and fMRI voxel intensities of the cerebellum region. The latter two experiments are compared the method of kernel-ridge regression (KRR) by using a normalized-mean-square-error to measure the performance of the prediction. It is concluded that the method is well suited for training with noise data sets that may be small.</p>
 </div>
+<div id="preliminaries" class="section level2">
+<h2>Preliminaries</h2>
+<p>A weighted, undirected graph is a triple <span class="math inline">\(G = (V, E, \omega)\)</span> of two sets <span class="math inline">\(V = \{1, \ldots, |V| = N \}\)</span> and <span class="math inline">\(E \subset V \times V\)</span> and a weighting function <span class="math inline">\(\omega(i,j) = \omega_{i,j}\)</span> that assigns a non-negative real number to each edge. We can represent a graph by its adjacency matrix <span class="math inline">\(A\)</span> where <span class="math inline">\(A_{i,j} = \omega_{i,j}\)</span> if <span class="math inline">\((i,j) \in E\)</span> and <span class="math inline">\(0\)</span> otherwise. A signal on a graph <span class="math inline">\(G\)</span> is a function <span class="math inline">\(f: V \rightarrow \mathbb{R}\)</span> that can be represented as vector <span class="math inline">\(x \in \mathbb{R}^N\)</span>. The Laplacian of a graph is the matrix <span class="math inline">\(L = D - A\)</span> where <span class="math inline">\(D\)</span> is the degree matrix. The Laplacian acts as a difference operator on signals via it’s quadratic form <span class="math display">\[\begin{equation}
+    \label{eq:quadraticform}
+    x^TLx = \sum_{(i,j)\in E}A_{i,j}(x_j - x_i)^2.
+\end{equation}\]</span> The Laplacian is positive semi definite, so it has a complete set of orthornormal eigenvectors, and real non negative eigenvalues. Thus, we can diagonalize <span class="math inline">\(L = \chi^T\Lambda \chi\)</span> where <span class="math inline">\(\Lambda\)</span> is the diagonal matrix of eigenvalues and <span class="math inline">\(\chi\)</span> is associated matrix of eigenvectors.</p>
+<p>Note that  is minimized when adjacent vertices have identical signal values. This makes  well suited for measuring the smoothness of a signal on a graph. We can cast the problem of learning a graph by the optimization problem found in  <span class="math display">\[\begin{equation}
+    \label{eq:GLP}
+    \begin{aligned}
+        \min_L       &amp; \phantom{..} \text{tr}(Y^TLY) + f(L), \\
+        \textrm{s.t.}&amp; \quad \text{tr}(L) = N,\\
+        &amp; \quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+        &amp; \quad L\cdot \textbf{1} = \textbf{0}
+    \end{aligned}
+\end{equation}\]</span></p>
+<div id="refs" class="references hanging-indent">
+<div id="ref-dong2016learning">
+<p>Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. “Learning Laplacian Matrix in Smooth Graph Signal Representations.” <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.</p>
 </div>
-<div id="sparse-graph-learning-under-laplacian-related-constraints" class="section level2">
-<h2>Sparse Graph Learning Under Laplacian-Related Constraints</h2>
-<div id="jitendra-k.-tugnait" class="section level4">
-<h4>Jitendra K. Tugnait</h4>
-<p>A sparse undirected graph under graph Laplacian-related contraints on the sparse precision matrix is learned. The off diagonal elements of the precision matrix are forced to be non-positive, but the precision matrix is not assumed to be full rank. In short, this method is a modification to traditional penalized log-likelihood approaches but not forcing an explicit Laplacian structure. The graph Laplacian is recovered from the off diagonal of the precision matrix. The method was shown to outperform existing Laplacian based approaches in expiremental settings. The method was also successfully applied to finacial time series data by considering 97 stocks in S&amp;P 100 index from Jan. 1, 2013 through Jan. 1 2018. Theoretical results only hold under the assumption the precision matrix is postive definite.</p>
+<div id="ref-kalofolias2016learn">
+<p>Kalofolias, Vassilis. 2016. “How to Learn a Graph from Smooth Signals.” In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.</p>
 </div>
+<div id="ref-ortega2018graph">
+<p>Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. “Graph Signal Processing: Overview, Challenges, and Applications.” <em>Proceedings of the IEEE</em> 106 (5): 808–28.</p>
 </div>
-<div id="learning-to-learn-graph-topologies" class="section level2">
-<h2>Learning to Learn Graph Topologies</h2>
-<div id="xingyue-pu-tianyue-cao-xiaoyun-zhang-xiaowen-dong-siheng-chen" class="section level4">
-<h4>Xingyue Pu, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, Siheng Chen</h4>
-<p>In model-based graph learning learning a graph topology is reduced to an optimisation problem over the space of graphs whose objective function carries the inductive graph-data interactions. The objective function typically consit of a graph-data fidelity term and a structural regulariser. Convex optimisation problems can be solved by iterative algorithms with convergence guarnetees.</p>
-<p>The main limitation of these methods is convex regularisers are not capapble of expressing rich topological and structural priors. Complex properties like scale-free and small-world properties have not been explored in detail due to lack of expressibility in a convex program. Some other limitations include the scalability of iterative algorithms and tuning parameters is computationally laborious.</p>
-<p>To address these shortcomings, a novel functional learning framework to learn an underlying graph topology with desired structural property. This framework is based on the field of learning to optimise (L2O). In order to learn to learn a graph topology a neural network that maps data terms to graph representations with identical topological properties.</p>
-<p>The method is applied to S&amp;P 100 Stock Returns and Assitant Diagnosis of Autism real world data sets.</p>
+<div id="ref-pu2021learning">
+<p>Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. “Learning to Learn Graph Topologies.” <em>Advances in Neural Information Processing Systems</em> 34.</p>
 </div>
+<div id="ref-pu2021kernel">
+<p>Pu, Xingyue, Siu Lun Chau, Xiaowen Dong, and Dino Sejdinovic. 2021. “Kernel-Based Graph Learning from Smooth Signals: A Functional Viewpoint.” <em>IEEE Transactions on Signal and Information Processing over Networks</em>.</p>
 </div>
-<div id="accelerated-graph-learning-from-smooth-signals" class="section level2">
-<h2>Accelerated Graph Learning from Smooth Signals</h2>
-<div id="seyed-saman-saboksayr" class="section level4">
-<h4>Seyed Saman Saboksayr</h4>
-<p>A fast scalable learning framework is created by utilizing fast proximal gradient iterations (PG). Unlike other used solvers, primal-dual method and alternating-direction method of multipliers, PG has global convergence rate guarentees and does not require additional step-size tuning. Simulated data is used to confirm favoriable convergence rates. The proposed framework is tested on real-world graphs with synthetic signals. The focus of this paper is on convergence rates, so the quality of learned graph is not measured.</p>
+<div id="ref-saboksayr2021accelerated">
+<p>Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. “Accelerated Graph Learning from Smooth Signals.” <em>IEEE Signal Processing Letters</em> 28: 2192–6.</p>
 </div>
+<div id="ref-stankovic2019vertex">
+<p>Stankovic, Ljubisa, Danilo P Mandic, Milos Dakovic, Bruno Scalzo, Milos Brajovic, Ervin Sejdic, and Anthony G Constantinides. 2019. “Vertex-Frequency Graph Signal Processing: A Review.” <em>arXiv Preprint arXiv:1907.03471</em>.</p>
 </div>
-<div id="references" class="section level1">
-<h1>References</h1>
-<div id="refs">
-
+<div id="ref-tugnait2021sparse">
+<p>Tugnait, Jitendra K. 2021. “Sparse Graph Learning Under Laplacian-Related Constraints.” <em>IEEE Access</em> 9: 151067–79.</p>
+</div>
+<div id="ref-venkitaraman2019predicting">
+<p>Venkitaraman, Arun, Saikat Chatterjee, and Peter Händel. 2019. “Predicting Graph Signals Using Kernel Regression Where the Input Signal Is Agnostic to a Graph.” <em>IEEE Transactions on Signal and Information Processing over Networks</em> 5 (4): 698–710.</p>
+</div>
+<div id="ref-xia2021graph">
+<p>Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. “Graph Learning: A Survey.” <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.</p>
+</div>
 </div>
 </div>
 
