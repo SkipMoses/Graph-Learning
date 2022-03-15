@@ -428,7 +428,7 @@ pre code {
     \label{eq:quadraticform}
     x^TLx = \sum_{(i,j)\in E}A_{i,j}(x_j - x_i)^2.
 \end{equation}\]</span> The Laplacian is positive semi definite, so it has a complete set of orthornormal eigenvectors, and real non negative eigenvalues. Thus, we can diagonalize <span class="math inline">\(L = \chi^T\Lambda \chi\)</span> where <span class="math inline">\(\Lambda\)</span> is the diagonal matrix of eigenvalues and <span class="math inline">\(\chi\)</span> is associated matrix of eigenvectors.</p>
-<p>Note that  is minimized when adjacent vertices have identical signal values. This makes  well suited for measuring the smoothness of a signal on a graph. We can cast the problem of learning a graph by the optimization problem found in  <span class="math display">\[\begin{equation}
+<p>Note that  is minimized when adjacent vertices have identical signal values. This makes  well suited for measuring the smoothness of a signal on a graph. We can cast the problem of learning a graph by the optimization problem found in <span class="citation">Kalofolias (2016)</span> <span class="math display">\[\begin{equation}
     \label{eq:GLP}
     \begin{aligned}
         \min_L       &amp; \phantom{..} \text{tr}(Y^TLY) + f(L), \\
@@ -437,6 +437,13 @@ pre code {
         &amp; \quad L\cdot \textbf{1} = \textbf{0}
     \end{aligned}
 \end{equation}\]</span></p>
+</div>
+<div id="our-model" class="section level2">
+<h2>Our Model</h2>
+</div>
+<div id="discussion" class="section level2">
+<h2>Discussion</h2>
+<p>Currently, GSP frameworks such as ours have limitations making them only practical in expiremental settings. For instance, these frameworks require the input to be the entire graph. This automatically puts a harsh limit on the size of the graphs that can be learned. Another related limitation, is the scalability of the algorithms used to learn the laplacian. In <span class="citation">Saboksayr and Mateos (2021)</span> the author shows fast proximal-gradient iterations can be applied to the framework given by <span class="citation">Kalofolias (2016)</span> converges to a globally optimal solution in <span class="math inline">\(O (1/k)\)</span>. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues.</p>
 <div id="refs" class="references hanging-indent">
 <div id="ref-dong2016learning">
 <p>Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. “Learning Laplacian Matrix in Smooth Graph Signal Representations.” <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.</p>

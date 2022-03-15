@@ -2,7 +2,7 @@
 title: 'Draft: Learning Laplacian from Binomial Signals'
 author: "Skip Moses"
 date: "3/12/2022"
-output: html_document
+output: pdf_document
 bibliography: ref.bib 
 cls: IEEEtran.cls
 ---
@@ -98,7 +98,7 @@ A weighted, undirected graph is a triple $G = (V, E, \omega)$ of two sets $V = \
 \end{equation} 
 The Laplacian is positive semi definite, so it has a complete set of orthornormal eigenvectors, and real non negative eigenvalues. Thus, we can diagonalize $L = \chi^T\Lambda \chi$ where $\Lambda$ is the diagonal matrix of eigenvalues and $\chi$ is associated matrix of eigenvectors. 
 
-Note that \ref{eq:quadraticform} is minimized when adjacent vertices have identical signal values. This makes \ref{eq:quadraticform} well suited for measuring the smoothness of a signal on a graph. We can cast the problem of learning a graph by the optimization problem found in \cite{kalofolias2016learn}
+Note that \ref{eq:quadraticform} is minimized when adjacent vertices have identical signal values. This makes \ref{eq:quadraticform} well suited for measuring the smoothness of a signal on a graph. We can cast the problem of learning a graph by the optimization problem found in @kalofolias2016learn
 \begin{equation}
 	\label{eq:GLP}
 	\begin{aligned}
@@ -108,3 +108,20 @@ Note that \ref{eq:quadraticform} is minimized when adjacent vertices have identi
 		& \quad L\cdot \textbf{1} = \textbf{0}
 	\end{aligned}
 \end{equation}
+
+## Our Model
+
+In order to generalize our model, we will take inspiration from the ideas used to generalize linear regression to logistic regression. Let $p(x = 1)$ be the probability a signal value of $1$ is observed on node $x$. Our model will be of the form 
+\begin{align}
+\text{logit}(p) = \chi h + p(x = 1) + \epsilon
+\end{align}
+
+Where $\chi$ is our matrix of eigenvalues for our graph. Recall, in binomial distribution the expectation is exactly $p(x = 1)$. 
+
+## Discussion 
+
+Currently, GSP frameworks such as ours have limitations making them only practical in experimental settings. For instance, these frameworks require the input to be the entire graph. This automatically puts a harsh limit on the size of the graphs that can be learned. Another related limitation, is the availability of the algorithms used to learn the laplacian. In @saboksayr2021accelerated the author shows fast proximal-gradient iterations can be applied to the framework given by @kalofolias2016learn converges to a globally optimal solution in $O (1/k)$. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues. 
+
+
+## References
+<div id="refs"></div>
