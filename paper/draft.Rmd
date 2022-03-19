@@ -1,0 +1,127 @@
+---
+title: 'Draft: Learning Laplacian from Binomial Signals'
+author: "Skip Moses"
+date: "3/12/2022"
+output: pdf_document
+bibliography: ref.bib 
+cls: IEEEtran.cls
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints @xia2021graph @stankovic2019vertex @ortega2018graph . A subset of graph learning that focuses on graph signal processing based methods deals with sampling, graph recovery and learning topological structure @xia2021graph. 
+
+The methods for learning topological structure fall into the categories of regression like models @dong2016learning, @tugnait2021sparse, @pu2021learning, and @saboksayr2021accelerated, and machine learning techniques @pu2021kernel, @kalofolias2016learn, and  @venkitaraman2019predicting . In all of these models, signals are assumed to follow multivariate gaussian distributions, but there has been little exploration in learning a network from binomial signals. 
+
+## Related Work
+
+Dong et al. propose a modified Factor Analysis model in @dong2016learning for learning a valid graph laplacian. The model proposed is given by 
+$$x = \chi h + \mu_x + \epsilon$$
+where $h \in \mathbb{R}^N$ is the latent variable, $\mu_x \in \mathbb{R}^N$ mean of $x$. The noise term $\epsilon$ is assumed to follow a multivariate Gaussian distribution with mean zero and covariance $\sigma_\epsilon^2I_N$. The key difference from traditional factor analysis is the choice of $\chi$ as a valid eigenvector matrix for a graph laplacian. Finding a maximum apriori estimate of $h$ reduces to solving the optimization problem
+
+\begin{equation}
+	\label{eq:dongmodel}
+	\begin{aligned}
+		\min_{L \in \mathbb{R}^{N\times N}, \phantom{..} Y \in \mathbb{R}^{N\times P}} ||X&-Y||_F^2 + \alpha \text{tr}(Y^TLY) + \beta||L||_F^2 \\
+		\textrm{s.t.}& \quad \text{tr}(L) = N, \\
+		&\quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+		&\quad L\cdot \textbf{1} = \textbf{0} \\
+	\end{aligned}
+\end{equation}
+
+Because \ref{eq:dongmodel} is not jointly convex, Dong et al. employ an alternating minimization scheme to solve the problem. Initially, set $Y = X$ and we find a suitable $L$ by solving 
+\begin{equation}
+	\label{eq:dong:prob1}
+	\begin{aligned}
+		\min_L       & \phantom{..} \alpha \text{tr}(Y^TLY) + \beta ||L||_F^2, \\
+		\textrm{s.t.}& \quad \text{tr}(L) = N,\\
+					 & \quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+					 & \quad L\cdot \textbf{1} = \textbf{0}
+	\end{aligned}
+\end{equation}
+
+Next, using $L$ from the first step we solve 
+\begin{equation}
+	\label{eq:dong:prob2}
+	\begin{aligned}
+		\min_Y \phantom{..} ||X-Y||_F^2 + \alpha \text{tr}(Y^TLY)
+	\end{aligned}
+\end{equation}
+
+Both \ref{eq:dong:prob1} and \ref{eq:dong:prob2} can be cast as convex optimization problems. Specifically, \ref{eq:dong:prob1} can be solved with the method of alternating direction of multipliers (ADMM). The model is applied to both synthetic and real world data, and compared to a technique used in machine learning that is similar to sparse inverse covariance estimation of Gaussian Markov Random Field models. Four evaluation criteria were used  to evaluate the performance of the framework: $\textit{Precision, Recall, F-measure,}$ and $\textit{Normalized Mutual Information (NMI)}$. Kalofolias cites two weaknesses to this model: The use of the Frobenius norm is not amenable to interpretation, and it requires four constraints on the solution space @kalofolias2016learn. 
+
+In @kalofolias2016learn, Kalofolias provides complementary ideas to improve on the work of Dong et al. In particular, Kalofolias considers the more natural problem of leaning the weighted adjacency matrix $A$, and show an extra smoothness condition leads to the learned graph being sparse. Define, $Z$ to be the matrix of pairwise distances of the signal, namely, $Z_{i,j} = ||x_i - x_j||^2$. Under this definition we can recast our smoothness term as 
+\begin{equation}
+	\label{eq:kalotransform}
+	\text{tr}(X^TLX) = \frac{1}{2} \text{tr}(AZ) = \frac{1}{2}  ||A\circ Z||_{1,1};
+\end{equation}
+where $\circ$ is the hadamard product and $||A||_{1,1}$ is the element wise 1-norm. We can now recast \ref{eq:GLP} as 
+\begin{equation}
+	\label{eq:GLP}
+	\begin{aligned}
+		\min_A       & \phantom{..} ||A\circ Z||_{1,1} + f(A), \\
+		\textrm{s.t.}& \quad ||A||_{1,1} = N,\\
+		& \quad A_{i,j} = A_{j,i} \geq 0, \phantom{..} i \neq j, \\
+		& \quad \text{diag}(A) = \textbf{0}
+	\end{aligned}
+\end{equation}
+
+The model proposed by Kalofolias is given by specifying $f(A) = -\alpha \textbf{1}^T\log(W\textbf{1}) + \beta||W||_F^2$. An appealing feature of this model is the fact that for any $\lambda >0$ and solution $F(Z,\alpha, \beta)$ the following equalities hold
+\begin{equation}
+	\label{eq:KalofoliasEquality}
+	F(Z, \alpha, \beta) = \lambda F(Z, \frac{\alpha}{\lambda}, \beta \lambda) = \alpha F(Z, 1, \alpha \beta).
+\end{equation}
+This means we can fix a scale $||A|| = s$ for an arbitrary norm and solve for $\beta$ in \ref{eq:kalotransform} with $\alpha = 1$, and then re-normalize our solution. Furthermore, the log barrier term only acts on the degrees. This provides an advantage over the model \ref{eq:dongmodel}, because it promotes connectivity in the learned graph. Kalofolias goes onto show \ref{eq:kalotransform} can be solved efficiently for many choices of $f(A)$ via primal dual algorithms. 
+
+In @venkitaraman2019predicting machine learning concepts are employed to learn a graph from training data. The goal is given some data ${x_n}$ to model a target $t_n$ by the linear basis model for regression
+\begin{equation}
+	\label{eq:LinearModel}
+	y_n = \textbf{W}^T\phi(x_n),
+\end{equation}
+where $\phi(x_n)$ is some known function and $\textbf{W}$ denotes the regression coefficient matrix. Venkitarman et al. assume only the target $y_n$ is smooth over the graph. The input $x_n$ does not have to be a signal over the graph and can even be agnostic to a graph. The cost function for the model when the underlying graph is known is given by 
+\begin{equation}
+	\label{eq:cost}
+	C(\textbf{W}) = \sum_{n=1}^N\left( ||t_n - y_n||_2^2 + \beta y_n^TLy_n \right) + \alpha \text{tr}(\textbf{W}^T\textbf{W}).
+\end{equation}
+Next, it is shown KRG induces a smoothing effect on the target by a shrinkage in the direction of eigenvectors of $L$ that have eigenvalues less than $\alpha$. In order to learn an unknown graph, a term is added to the cost function $C(\textbf{W}, L) = C(\textbf{W}) + \nu \text{tr}(L^TL)$.  Venkitarman et al. use the model to predict temperature using air-pressure observations collected in Sweden, next day temperature from current day in Sweden, and fMRI voxel intensities of the cerebellum region. The latter two experiments are compared the method of kernel-ridge regression (KRR) by using a normalized-mean-square-error to measure the performance of the prediction. It is concluded that the method is well suited for training with noise data sets that may be small. 
+
+## Preliminaries 
+
+A weighted, undirected graph is a triple $G = (V, E, \omega)$ of two sets $V = \{1, \ldots, |V| = N \}$ and $E \subset V \times V$ and a weighting function $\omega(i,j) = \omega_{i,j}$ that assigns a non-negative real number to each edge. We can represent a graph by its adjacency matrix $A$ where $A_{i,j} = \omega_{i,j}$ if $(i,j) \in E$ and $0$ otherwise. A signal on a graph $G$ is a function $f: V \rightarrow \mathbb{R}$ that can be represented as vector $x \in \mathbb{R}^N$. The Laplacian of a graph is the matrix $L = D - A$ where $D$ is the degree matrix. The Laplacian acts as a difference operator on signals via it's quadratic form
+\begin{equation}
+	\label{eq:quadraticform}
+	x^TLx = \sum_{(i,j)\in E}A_{i,j}(x_j - x_i)^2.
+\end{equation} 
+The Laplacian is positive semi definite, so it has a complete set of orthornormal eigenvectors, and real non negative eigenvalues. Thus, we can diagonalize $L = \chi^T\Lambda \chi$ where $\Lambda$ is the diagonal matrix of eigenvalues and $\chi$ is associated matrix of eigenvectors. 
+
+Note that \ref{eq:quadraticform} is minimized when adjacent vertices have identical signal values. This makes \ref{eq:quadraticform} well suited for measuring the smoothness of a signal on a graph. We can cast the problem of learning a graph by the optimization problem found in @kalofolias2016learn
+\begin{equation}
+	\label{eq:GLP}
+	\begin{aligned}
+		\min_L       & \phantom{..} \text{tr}(Y^TLY) + f(L), \\
+		\textrm{s.t.}& \quad \text{tr}(L) = N,\\
+		& \quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+		& \quad L\cdot \textbf{1} = \textbf{0}
+	\end{aligned}
+\end{equation}
+
+## Our Model
+
+In order to generalize our model, we will take inspiration from the ideas used to generalize linear regression to logistic regression. Let $p(x = 1)$ be the probability a signal value of $1$ is observed on node $x$. Our model will be of the form 
+\begin{align}
+\text{logit}(p) = \chi h + p(x = 1) + \epsilon
+\end{align}
+
+Where $\chi$ is our matrix of eigenvalues for our graph. Recall, in binomial distribution the expectation is exactly $p(x = 1)$. 
+
+## Discussion 
+
+Currently, GSP frameworks such as ours have limitations making them only practical in experimental settings. For instance, these frameworks require the input to be the entire graph. This automatically puts a harsh limit on the size of the graphs that can be learned. Another related limitation, is the availability of the algorithms used to learn the laplacian. In @saboksayr2021accelerated the author shows fast proximal-gradient iterations can be applied to the framework given by @kalofolias2016learn converges to a globally optimal solution in $O (1/k)$. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues. 
+
+
+## References
+<div id="refs"></div>

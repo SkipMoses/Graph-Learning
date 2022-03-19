@@ -1,0 +1,104 @@
+---
+title: "Article Summaries"
+author: "Skip Moses"
+date: "2/26/2022"
+output: html_document
+bibliography: ref.bib 
+cls: IEEEtran.cls
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Graph Learning: A Survey
+
+#### Feng Xia,  Ke Sun , Shuo Yu, Abdul Aziz,
+
+#### Liangtian Wan,  Shirui Pan , and Huan Liu
+
+
+
+Graphs, or networks, can model numerous real-world relationships. For example, social networks, biological networks, patent networks, traffic networks, citation networks, and communication networks. In all of these cases, the graphs are known a priori. Recently, Graph Learning has become a popular approach to extracting meaningful relationships from data sets where the graph is not otherwise known. 
+
+In essence, graph learning is a form of machine learning on graphs. Most methods of graph learning take the features of the graph into a vector space with the same dimensions. This is accomplished without projecting the graph into a low dimensional space. The representation of the graph can be utilized without an explicit embedding. This is what makes graph learning such a powerful technique. 
+
+Graph learning can be partitioned into four fields:
+
+  1. Graph Signal Processing Based Methods
+  
+Deals with sampling, graph recovery and learning topological structure.
+
+  2. Random Walk Based Methods
+  
+Includes structure-based random walk, structure and node information based random walk, random walk in heterogeneous networks and random walk in time-varying networks.
+
+  3. Matrix Factorization Based Methods
+  
+Deals with Laplacian matrix factorization and vertex proximity matrix factorization.
+
+  4. Deep Learning Based Methods
+  
+Includes graph convolutional networks, graph attention networks, graph auto-encoder, graph generative networks and graph spatial-temporal networks. 
+
+The main difference in these four methods/techniques is in their model architecture. 
+
+Traditional signal processing has been very successful in analyzing signals from a regular data domain. Graphs represent a kind of irregular data; this makes appling tradional methods hard. Thus, the main task of GSP is to generalize traditional signal processing techinques into this irregular domain. There are two main approaches to representing a graph in GSP; Adjacency based GSP and Laplacian based GSP. Adjacency based techniques are grounded in algebraic signal processin (ASP). Laplacian based techniques are derived from spectral graph theory. The Laplacian (or Adjacency matrix) take on the roll of a shift operator in traditional signal processing. 
+
+## Sparse Graph Learning Under Laplacian-Related Constraints
+
+#### Jitendra K. Tugnait
+
+A sparse undirected graph under graph Laplacian-related contraints on the sparse precision matrix is learned. The off diagonal elements of the precision matrix are forced to be non-positive, but the precision matrix is not assumed to be full rank. In short, this method is a modification to traditional penalized log-likelihood approaches but not forcing an explicit Laplacian structure. The graph Laplacian is recovered from the off diagonal of the precision matrix. The method was shown to outperform existing Laplacian based approaches in expiremental settings. The method was also successfully applied to finacial time series data by considering 97 stocks in S&P 100 index from Jan. 1, 2013 through Jan. 1 2018. Theoretical results only hold under the assumption the precision matrix is postive definite. 
+
+## Learning to Learn Graph Topologies
+
+#### Xingyue Pu, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, Siheng Chen
+
+In model-based graph learning learning a graph topology is reduced to an optimisation problem over the space of graphs whose objective function carries the inductive graph-data interactions. The objective function typically consit of a graph-data fidelity term and a structural regulariser. 
+Convex optimisation problems can be solved by iterative algorithms with convergence guarnetees. 
+
+The main limitation of these methods is convex regularisers are not capapble of expressing rich topological and structural priors. Complex properties like scale-free and small-world properties have not been explored in detail due to lack of expressibility in a convex program. Some other limitations include the scalability of iterative algorithms and tuning parameters is computationally laborious. 
+
+To address these shortcomings, a novel functional learning framework to learn an underlying graph topology with desired structural property. This framework is based on the field of learning to optimise (L2O). In order to learn to learn a graph topology a neural network that maps data terms to graph representations with identical topological properties. 
+
+The method is applied to S&P 100 Stock Returns and Assitant Diagnosis of Autism real world data sets. 
+
+## Accelerated Graph Learning from Smooth Signals
+
+#### Seyed Saman Saboksayr
+
+A fast scalable learning framework is created by utilizing fast proximal gradient iterations (PG). Unlike other used solvers, primal-dual method and alternating-direction method of multipliers, PG has global convergence rate guarentees and does not require additional step-size tuning. Simulated data is used to confirm favoriable convergence rates. The proposed framework is tested on real-world graphs with synthetic signals. The focus of this paper is on convergence rates, so the quality of learned graph is not measured. 
+
+# References
+
+<div id="refs"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
