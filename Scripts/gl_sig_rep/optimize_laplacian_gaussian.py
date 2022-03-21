@@ -116,6 +116,6 @@ def optimize_laplacian_gaussian(N,Y,alpha,beta):
     prob = cp.Problem(objective, constraints)
     prob.solve()
     EL = np.reshape(mat_obj@(L.value), (N,N))
-    return(EL.round(4)
+    return(EL.round(4))
    
 
