@@ -1,0 +1,44 @@
+---
+title: "Comments on binomial graph learning"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Inspired by conditional logistic regression 
+Let $Y_{i,j}$ denote the measurement on the node $i$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. $Y_{i,j}$ is a binomial signal that can be 1, or 0. (complete signals for each node. might be revised ) Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round $k$ denoted by $Y[,k ]$, for $i \neq k$. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+$$logit(p_{i,j}) = \alpha_j + (\chi h )_i,$$
+
+where $\chi$ is the eigenvector matrix from Graph Laplacian $L$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\chi$ (might be changed to get a nice solution), and $\alpha_j$ is a round specific parameter at round $j$.
+Constraints:
+
+Sigmoid computation,
+Bound and Branch method of optimization
+
+hint for factor analysis solution might be useful because there is another object function varimax. 
+
+https://conservancy.umn.edu/bitstream/handle/11299/95957/Choi_umn_0130E_11451.pdf?sequence=1&isAllowed=y
+
+
+
+https://web.stanford.edu/~boyd/papers/pdf/max_sum_sigmoids.pdf
+
+* complete separation do not exist. observable metric ?, it is a potential new topic to be able to identify whether complete separation exists. possible discuss it in the Discussion and future work.  
+
+* While working on this one, you may also consider implementing our regressor paper. 
+
+
+
+
+## Our goal is to estimate the Graph Laplacian
+
+* We do not have to use the eigenvector matrix $\chi$. Instead, we may consider adjacency matrix $A$ in place of $\chi$. This is a viable direction.
+
+
+
+
+
+
+Maximum Likelihood estimation, Quasi likelihood estimation, 
