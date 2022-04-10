@@ -1,17 +1,49 @@
 ---
 title: "Comments on binomial graph learning"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Inspired by conditional logistic regression 
-Let $Y_{i,j}$ denote the measurement on the node $i$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. $Y_{i,j}$ is a binomial signal that can be 1, or 0. (complete signals for each node. might be revised ) Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round $k$ denoted by $Y[,k ]$, for $i \neq k$. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
-$$logit(p_{i,j}) = \alpha_j + (\chi h )_i,$$
+## Binary graph learning model 
+### Version 1 (Eigenvector matrix from Graph Laplacian)
+Let $Y_{i,j}$ denote the measurement on the node $i$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. $Y_{i,j}$ is a binomial signal that can be 1, or 0. Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round $k$ denoted by $Y[,k ]$, for $i \neq k$. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+$$\text{logit}(p_{i,j}) = \alpha_j + (\chi h )_i,$$
 
-where $\chi$ is the eigenvector matrix from Graph Laplacian $L$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\chi$ (might be changed to get a nice solution), and $\alpha_j$ is a round specific parameter at round $j$.
+where $\chi$ is the eigenvector matrix from Graph Laplacian $L$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\chi$, and $\alpha_j$ is a round specific parameter at round $j$.
+
+### Version 2 (Adjacency matrix from Graph)
+#### Graph 
+We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix for the graph $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
+
+#### Signals on the graph
+Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round (or strata) $k$ denoted by $Y[,k ]$, for $i \neq k$, borrowing the idea of conditional logistic regression. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+
+\begin{equation}
+\label{eq:binaryglm}
+\text{logit}(p_{i,j}) = \alpha_j + (\mathbf{A} h )_i,
+\end{equation}
+
+where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$, and $\alpha_j$ is a round specific parameter at round or strata $j$. In the following, we will use  
+
+## Method of Estimation
+
+The conditional likelihood function for model (\ref{eq:binaryglm}) given  is (I will update soon)
+
+<!-- \begin{equation} -->
+<!-- 	\label{eq:dongmodel} -->
+<!-- 	\begin{aligned} -->
+<!-- 		\min_{L \in \mathbb{R}^{N\times N}, \phantom{..} Y \in \mathbb{R}^{N\times P}} ||X&-Y||_F^2 + \alpha \text{tr}(Y^TLY) + \beta||L||_F^2 \\ -->
+<!-- 		\textrm{s.t.}& \quad \text{tr}(L) = N, \\ -->
+<!-- 		&\quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\ -->
+<!-- 		&\quad L\cdot \textbf{1} = \textbf{0} \\ -->
+<!-- 	\end{aligned} -->
+<!-- \end{equation} -->
+ 
+
+## Miscellaneous 
 Constraints:
 
 Sigmoid computation,
@@ -28,6 +60,9 @@ https://web.stanford.edu/~boyd/papers/pdf/max_sum_sigmoids.pdf
 * complete separation do not exist. observable metric ?, it is a potential new topic to be able to identify whether complete separation exists. possible discuss it in the Discussion and future work.  
 
 * While working on this one, you may also consider implementing our regressor paper. 
+
+## Model Specification
+
 
 
 
