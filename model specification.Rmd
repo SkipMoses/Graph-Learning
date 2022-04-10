@@ -46,6 +46,27 @@ The conditional likelihood function for model (\ref{eq:binaryglm}) given  is (I 
 ## Miscellaneous 
 Constraints:
 
+* Case $\chi$: Here I imagine the constraints are on the Laplacian
+
+\begin{equation}
+\begin{aligned}
+&\quad \text{tr}(L) = N, \\
+&\quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+&\quad L\cdot \textbf{1} = \textbf{0} \\
+\end{aligned}
+\end{equation}
+
+* Case with adjacency matrix:
+
+\begin{equation}
+\begin{aligned}
+&\quad A_{i,j} = 0 \text{ if } i = j, \\
+&\quad A_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j
+\end{aligned}
+\end{equation}
+
+
+
 Sigmoid computation,
 Bound and Branch method of optimization
 
