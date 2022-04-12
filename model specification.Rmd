@@ -65,7 +65,12 @@ Constraints:
 \end{aligned}
 \end{equation}
 
+* Consider the quadratic form 
+$$
+  x^TLx = \frac{1}{2}\sum_{(i,j)\in E}w_{i,j}(f(i) - f(j))^2
+$$
 
+Because $x$ is a binomial, this expression sums the weights of edeges with incident nodes that have differing signal values. Suppose the graph has a constant signal, then $x^TLx = 0$. Suppose, we are in the worst case when incident nodes for each edge have a different signal; in this case $x^TLx = \frac{1}{2}\sum_{(i,j) \in E}w_{i,j}$. Note, we can bound $x^TLx$ from below by $\min{w_{i,j}}$ in the case were a single edge has incident nodes with differing signals. We can use these bounds to gauge the quality of model. 
 
 Sigmoid computation,
 Bound and Branch method of optimization

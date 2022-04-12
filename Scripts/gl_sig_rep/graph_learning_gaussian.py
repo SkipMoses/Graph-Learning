@@ -26,8 +26,8 @@ def graph_learning_gaussian(X_noisy, param):
         R = np.linalg.cholesky(np.identity(N) + alpha*L)
         Rt = np.transpose(R)
         arg1 = np.linalg.lstsq(Rt, Y_0)[0]
-        print('arg1 shape is ' + str(arg1.shape))
-        print('R shape is ' + str(R.shape))
+        # print('arg1 shape is ' + str(arg1.shape))
+        # print('R shape is ' + str(R.shape))
         Y = np.linalg.lstsq(R, arg1)[0]
         
         # Store objective
