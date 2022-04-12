@@ -19,29 +19,40 @@ where $\chi$ is the eigenvector matrix from Graph Laplacian $L$, $h$ is a vector
 We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix for the graph $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
 
 #### Signals on the graph
-Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round (or strata) $k$ denoted by $Y[,k ]$, for $i \neq k$, borrowing the idea of conditional logistic regression. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round (or stratum) $k$ denoted by $Y[,k ]$, for $i \neq k$, borrowing the idea of conditional logistic regression. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
 
 \begin{equation}
 \label{eq:binaryglm}
 \text{logit}(p_{i,j}) = \alpha_j + (\mathbf{A} h )_i,
 \end{equation}
 
-where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$, and $\alpha_j$ is a round specific parameter at round or strata $j$. In the following, we will use  
+where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$ and assumed to be a standard normal random vector, and $\alpha_j$ is a round specific parameter at round or stratum $j$. In the following, we will use  
 
 ## Method of Estimation
+### Conditional likelihood for one stratum
+Let $O_i$ denote the set of nodes at stratum $i$ that have observed signals of 1, and let $Z_i$ denote the set of nodes at stratum $i$ that have observed signals of 0. Suppose the number of nodes that have signals of 1 at stratum $i$ is $k_i$. The conditional likelihood function based on model (\ref{eq:binaryglm}) for one stratum $i$ of size $N$, is
 
-The conditional likelihood function for model (\ref{eq:binaryglm}) given  is (I will update soon)
+\begin{equation}
+	\label{eq:stratumlikelihood}
+	\begin{aligned}
+	&	P(Y_{il} = 1 \text{ for } l \in O_i, Y_{im} = 0 \text{ for } m \in Z_i | \sum_{j=1}^M Y_{ij} = k_i) \\   
+	& =  {\text{exp} (\sum_{l \in O_i}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_i}^M} \text{exp} (\sum_{j \in J}\mathbf{A}[j, ] h  },
+	\end{aligned}
+\end{equation}
+
+where $C_{k_i}^M$ is the set of all subsets of size $k_i$ of the set ${1, 2, \dots, M}$. 
+
+### Conditional log likelihood function
+The full conditional log likelihood function is the sum of the log likelihoods for each stratum and can be written as  
 
 <!-- \begin{equation} -->
-<!-- 	\label{eq:dongmodel} -->
+<!-- 	\label{eq:condloglikelihood} -->
 <!-- 	\begin{aligned} -->
-<!-- 		\min_{L \in \mathbb{R}^{N\times N}, \phantom{..} Y \in \mathbb{R}^{N\times P}} ||X&-Y||_F^2 + \alpha \text{tr}(Y^TLY) + \beta||L||_F^2 \\ -->
-<!-- 		\textrm{s.t.}& \quad \text{tr}(L) = N, \\ -->
-<!-- 		&\quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\ -->
-<!-- 		&\quad L\cdot \textbf{1} = \textbf{0} \\ -->
+<!-- 	&	P(Y_{il} = 1 \text{ for } l \in O_i, Y_{im} = 0 \text{ for } m \in Z_i | \sum_{j=1}^M Y_{ij} = k_i) \\    -->
+<!-- 	& =  {\text{exp} (\sum_{l \in O_i}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_i}^M} \text{exp} (\sum_{j \in J}\mathbf{A}[j, ] h  }, -->
 <!-- 	\end{aligned} -->
 <!-- \end{equation} -->
- 
+
 
 ## Miscellaneous 
 Constraints:
@@ -61,9 +72,11 @@ Constraints:
 \begin{equation}
 \begin{aligned}
 &\quad A_{i,j} = 0 \text{ if } i = j, \\
-&\quad A_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j
+&\quad A_{i,j} = A_{j,i} \geq 0, \phantom{..} \text{ if } i \neq j
 \end{aligned}
 \end{equation}
+
+
 
 * Consider the quadratic form 
 $$
