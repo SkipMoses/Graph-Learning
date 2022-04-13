@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  12 APR 2022 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  13 APR 2022 13:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -461,31 +461,31 @@ Package amsmath Warning: Foreign command \over;
 [1
 
 {c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 168.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 187.
 (c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (0.21054pt too wide) in paragraph at lines 214--215
+Overfull \hbox (0.21054pt too wide) in paragraph at lines 233--234
 [][]$\T1/lmr/m/n/10 (+2) https : / / conservancy . umn . edu / bitstream / handle / 11299 / 95957 / Choi _ umn _ 0130E _ 11451 . pdf ? sequence = 1 &
  []
 
-[2] (./model-specification.aux)
+[2] [3] (./model-specification.aux)
 Package rerunfilecheck Info: File `model-specification.out' has not changed.
-(rerunfilecheck)             Checksum: 5559EA3D455D50C6D6A4B6C96743D336;1968.
+(rerunfilecheck)             Checksum: 0DD74975D2423332DB42B3A1B4073CCB;2190.
  ) 
 Here is how much of TeX's memory you used:
- 12705 strings out of 480198
- 204998 string characters out of 5891664
- 535201 words of memory out of 5000000
- 30343 multiletter control sequences out of 15000+600000
+ 12714 strings out of 480198
+ 205158 string characters out of 5891664
+ 536376 words of memory out of 5000000
+ 30347 multiletter control sequences out of 15000+600000
  534445 words of font info for 129 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,10n,63p,1016b,334s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 60i,10n,63p,1016b,397s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on model-specification.pdf (2 pages, 177596 bytes).
+Output written on model-specification.pdf (3 pages, 180566 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 120 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 38985 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 163 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 38993 words of extra memory for PDF output out of 42996 (max. 10000000)
 

@@ -30,28 +30,39 @@ where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector o
 
 ## Method of Estimation
 ### Conditional likelihood for one stratum
-Let $O_i$ denote the set of nodes at stratum $i$ that have observed signals of 1, and let $Z_i$ denote the set of nodes at stratum $i$ that have observed signals of 0. Suppose the number of nodes that have signals of 1 at stratum $i$ is $k_i$. The conditional likelihood function based on model (\ref{eq:binaryglm}) for one stratum $i$ of size $N$, is
+Let $O_j$ denote the set of nodes at stratum $j$ that have observed signals of 1, and let $Z_j$ denote the set of nodes at stratum $j$ that have observed signals of 0. Suppose the number of nodes that have signals of 1 at stratum $j$ is $k_j$. The conditional likelihood function based on model (\ref{eq:binaryglm}) for stratum $j$ of size $N$, is
 
 \begin{equation}
 	\label{eq:stratumlikelihood}
 	\begin{aligned}
-	&	P(Y_{il} = 1 \text{ for } l \in O_i, Y_{im} = 0 \text{ for } m \in Z_i | \sum_{j=1}^M Y_{ij} = k_i) \\   
-	& =  {\text{exp} (\sum_{l \in O_i}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_i}^M} \text{exp} (\sum_{j \in J}\mathbf{A}[j, ] h  },
+	&	P(Y_{lj} = 1 \text{ for } l \in O_j, Y_{mj} = 0 \text{ for } m \in Z_j | \sum_{i=1}^N Y_{ij} = k_j) \\   
+	& =  {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
 	\end{aligned}
 \end{equation}
 
-where $C_{k_i}^M$ is the set of all subsets of size $k_i$ of the set ${1, 2, \dots, M}$. 
+where $C_{k_j}^N$ is the set of all subsets of size $k_j$ of the set ${1, 2, \dots, N}$. 
+
+
+### Conditional likelihoood function
+The conditional likelihood function for all strata is written as
+\begin{equation}
+	\label{eq:conlikelihood}
+	\begin{aligned}
+	&	L(\mathbf{A}, \beta)  = \prod_{j=1}^M {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
+	\end{aligned}
+\end{equation}
 
 ### Conditional log likelihood function
 The full conditional log likelihood function is the sum of the log likelihoods for each stratum and can be written as  
 
-<!-- \begin{equation} -->
-<!-- 	\label{eq:condloglikelihood} -->
-<!-- 	\begin{aligned} -->
-<!-- 	&	P(Y_{il} = 1 \text{ for } l \in O_i, Y_{im} = 0 \text{ for } m \in Z_i | \sum_{j=1}^M Y_{ij} = k_i) \\    -->
-<!-- 	& =  {\text{exp} (\sum_{l \in O_i}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_i}^M} \text{exp} (\sum_{j \in J}\mathbf{A}[j, ] h  }, -->
-<!-- 	\end{aligned} -->
-<!-- \end{equation} -->
+\begin{equation}
+	\label{eq:condloglikelihood}
+	\begin{aligned}
+	&	\text{log}(L(\mathbf{A}, \beta))  = \sum_{j=1}^M \sum_{l \in O_j}\mathbf{A}[l, ] h  - \sum_{j=1}^M \text{log}\sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) ,
+	\end{aligned}
+\end{equation}
+
+
 
 
 ## Miscellaneous 
