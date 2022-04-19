@@ -26,7 +26,7 @@ Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where
 \text{logit}(p_{i,j}) = \alpha_j + (\mathbf{A} h )_i,
 \end{equation}
 
-where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$ and assumed to be a standard normal random vector, and $\alpha_j$ is a round specific parameter at round or stratum $j$. In the following, we will use  
+where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$ and assumed to be a standard normal random vector, and $\alpha_j$ is a round specific parameter at round or stratum $j$, and assumed to be normally distributed with mean of 0, and unknown variance $\sigma^2$ 
 
 ## Method of Estimation
 ### Conditional likelihood for one stratum
@@ -48,7 +48,7 @@ The conditional likelihood function for all strata is written as
 \begin{equation}
 	\label{eq:conlikelihood}
 	\begin{aligned}
-	&	L(\mathbf{A}, \beta)  = \prod_{j=1}^M {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
+	&	L(\mathbf{A}, h)  = \prod_{j=1}^M {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
 	\end{aligned}
 \end{equation}
 
@@ -58,12 +58,14 @@ The full conditional log likelihood function is the sum of the log likelihoods f
 \begin{equation}
 	\label{eq:condloglikelihood}
 	\begin{aligned}
-	&	\text{log}(L(\mathbf{A}, \beta))  = \sum_{j=1}^M \sum_{l \in O_j}\mathbf{A}[l, ] h  - \sum_{j=1}^M \text{log}\sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) ,
+	&	\text{log}(L(\mathbf{A}, h))  = \sum_{j=1}^M \sum_{l \in O_j}\mathbf{A}[l, ] h  - \sum_{j=1}^M \text{log}\sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) 
+	& = \sum_{j=1}^M \mathbf{A} h y_j  - \sum_{j=1}^M \text{log}\sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h )
 	\end{aligned}
 \end{equation}
 
 
-
+### The Estimator
+The maximum likelihood estimator is then defined as $\mathbf{A}$ which maximize (\ref{eq:condloglikelihood}), which is equivalent to minimizing the negative conditional log likelihood.
 
 ## Miscellaneous 
 Constraints:
