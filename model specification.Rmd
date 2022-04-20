@@ -19,7 +19,7 @@ where $\chi$ is the eigenvector matrix from Graph Laplacian $L$, $h$ is a vector
 We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix for the graph $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
 
 #### Signals on the graph
-Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round (or stratum) $k$ denoted by $Y[,k ]$, for $i \neq k$, borrowing the idea of conditional logistic regression. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. Suppose the signals at round $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at round (or stratum) $k$ denoted by $Y[,k ]$, for $j \neq k$, borrowing the idea of conditional logistic regression. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
 
 \begin{equation}
 \label{eq:binaryglm}

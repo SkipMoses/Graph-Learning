@@ -1,0 +1,273 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Comments on binomial graph learning},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Comments on binomial graph learning}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{binary-graph-learning-model}{%
+\subsection{Binary graph learning
+model}\label{binary-graph-learning-model}}
+
+\hypertarget{version-1-eigenvector-matrix-from-graph-laplacian}{%
+\subsubsection{Version 1 (Eigenvector matrix from Graph
+Laplacian)}\label{version-1-eigenvector-matrix-from-graph-laplacian}}
+
+Let \(Y_{i,j}\) denote the measurement on the node \(i\) at round \(j\),
+where \(j = 1, \dots, M\), and \(i = 1, \dots, N\). \(Y_{i,j}\) is a
+binomial signal that can be 1, or 0. Suppose the signals at round \(j\)
+denoted by \(Y[, j]\) for all \(N\) nodes are independent of the signals
+at round \(k\) denoted by \(Y[,k ]\), for \(i \neq k\). Let \(p_{i,j}\)
+denote the probability of \(Y_{i,j} = 1\). Our model assumes
+\[\text{logit}(p_{i,j}) = \alpha_j + (\chi h )_i,\]
+
+where \(\chi\) is the eigenvector matrix from Graph Laplacian \(L\),
+\(h\) is a vector of latent factors that governs \(p_{i, j}\) through
+\(\chi\), and \(\alpha_j\) is a round specific parameter at round \(j\).
+
+\hypertarget{version-2-adjacency-matrix-from-graph}{%
+\subsubsection{Version 2 (Adjacency matrix from
+Graph)}\label{version-2-adjacency-matrix-from-graph}}
+
+\hypertarget{graph}{%
+\paragraph{Graph}\label{graph}}
+
+We consider a weighted undirected graph \(G = (V, E)\), with the
+vertices set \(V = {1, 2, \dots, N}\), and edge set \(E\). Let
+\(\mathbf{A}\) denote the weighted adjacency matrix for the graph \(G\).
+In the case of weighted undirected graph, \(\mathbf{A}\) is a square and
+symmetric matrix.
+
+\hypertarget{signals-on-the-graph}{%
+\paragraph{Signals on the graph}\label{signals-on-the-graph}}
+
+Let \(Y_{i,j}\) denote the signal on the node \(i\) of graph \(G\) at
+round \(j\), where \(j = 1, \dots, M\), and \(i = 1, \dots, N\). We
+assume that \(Y_{i,j}\) is a binary signal that can be 1, or 0. Suppose
+the signals at round \(j\) denoted by \(Y[, j]\) for all \(N\) nodes are
+independent of the signals at round (or stratum) \(k\) denoted by
+\(Y[,k ]\), for \(j \neq k\), borrowing the idea of conditional logistic
+regression. Let \(p_{i,j}\) denote the probability of \(Y_{i,j} = 1\).
+Our model assumes
+
+\begin{equation}
+\label{eq:binaryglm}
+\text{logit}(p_{i,j}) = \alpha_j + (\mathbf{A} h )_i,
+\end{equation}
+
+where \(\mathbf{A}\) is the adjacency matrix from the graph \(G\), \(h\)
+is a vector of latent factors that governs \(p_{i, j}\) through
+\(\mathbf{A}\) and assumed to be a standard normal random vector, and
+\(\alpha_j\) is a round specific parameter at round or stratum \(j\),
+and assumed to be normally distributed with mean of 0, and unknown
+variance \(\sigma^2\)
+
+\hypertarget{method-of-estimation}{%
+\subsection{Method of Estimation}\label{method-of-estimation}}
+
+\hypertarget{conditional-likelihood-for-one-stratum}{%
+\subsubsection{Conditional likelihood for one
+stratum}\label{conditional-likelihood-for-one-stratum}}
+
+Let \(O_j\) denote the set of nodes at stratum \(j\) that have observed
+signals of 1, and let \(Z_j\) denote the set of nodes at stratum \(j\)
+that have observed signals of 0. Suppose the number of nodes that have
+signals of 1 at stratum \(j\) is \(k_j\). The conditional likelihood
+function based on model (\ref{eq:binaryglm}) for stratum \(j\) of size
+\(N\), is
+
+\begin{equation}
+    \label{eq:stratumlikelihood}
+    \begin{aligned}
+    &   P(Y_{lj} = 1 \text{ for } l \in O_j, Y_{mj} = 0 \text{ for } m \in Z_j | \sum_{i=1}^N Y_{ij} = k_j) \\   
+    & =  {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
+    \end{aligned}
+\end{equation}
+
+where \(C_{k_j}^N\) is the set of all subsets of size \(k_j\) of the set
+\({1, 2, \dots, N}\).
+
+\hypertarget{conditional-likelihoood-function}{%
+\subsubsection{Conditional likelihoood
+function}\label{conditional-likelihoood-function}}
+
+The conditional likelihood function for all strata is written as
+\begin{equation}
+    \label{eq:conlikelihood}
+    \begin{aligned}
+    &   L(\mathbf{A}, h)  = \prod_{j=1}^M {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
+    \end{aligned}
+\end{equation}
+
+\hypertarget{conditional-log-likelihood-function}{%
+\subsubsection{Conditional log likelihood
+function}\label{conditional-log-likelihood-function}}
+
+The full conditional log likelihood function is the sum of the log
+likelihoods for each stratum and can be written as
+
+\begin{equation}
+    \label{eq:condloglikelihood}
+    \begin{aligned}
+    &   \text{log}(L(\mathbf{A}, h))  = \sum_{j=1}^M \sum_{l \in O_j}\mathbf{A}[l, ] h  - \sum_{j=1}^M \text{log}\sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) 
+    & = \sum_{j=1}^M \mathbf{A} h y_j  - \sum_{j=1}^M \text{log}\sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h )
+    \end{aligned}
+\end{equation}
+
+\hypertarget{the-estimator}{%
+\subsubsection{The Estimator}\label{the-estimator}}
+
+The maximum likelihood estimator is then defined as \(\mathbf{A}\) which
+maximize (\ref{eq:condloglikelihood}), which is equivalent to minimizing
+the negative conditional log likelihood.
+
+\hypertarget{miscellaneous}{%
+\subsection{Miscellaneous}\label{miscellaneous}}
+
+Constraints:
+
+\begin{itemize}
+\tightlist
+\item
+  Case \(\chi\): Here I imagine the constraints are on the Laplacian
+\end{itemize}
+
+\begin{equation}
+\begin{aligned}
+&\quad \text{tr}(L) = N, \\
+&\quad L_{i,j} = L_{j,i} \leq 0, \phantom{..} i \neq j, \\
+&\quad L\cdot \textbf{1} = \textbf{0} \\
+\end{aligned}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Case with adjacency matrix:
+\end{itemize}
+
+\begin{equation}
+\begin{aligned}
+&\quad A_{i,j} = 0 \text{ if } i = j, \\
+&\quad A_{i,j} = A_{j,i} \geq 0, \phantom{..} \text{ if } i \neq j
+\end{aligned}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Consider the quadratic form \[
+  x^TLx = \frac{1}{2}\sum_{(i,j)\in E}w_{i,j}(f(i) - f(j))^2
+  \]
+\end{itemize}
+
+Because \(x\) is a binomial, this expression sums the weights of edeges
+with incident nodes that have differing signal values. Suppose the graph
+has a constant signal, then \(x^TLx = 0\). Suppose, we are in the worst
+case when incident nodes for each edge have a different signal; in this
+case \(x^TLx = \frac{1}{2}\sum_{(i,j) \in E}w_{i,j}\). Note, we can
+bound \(x^TLx\) from below by \(\min{w_{i,j}}\) in the case were a
+single edge has incident nodes with differing signals. We can use these
+bounds to gauge the quality of model.
+
+Sigmoid computation, Bound and Branch method of optimization
+
+hint for factor analysis solution might be useful because there is
+another object function varimax.
+
+\url{https://conservancy.umn.edu/bitstream/handle/11299/95957/Choi_umn_0130E_11451.pdf?sequence=1\&isAllowed=y}
+
+\url{https://web.stanford.edu/~boyd/papers/pdf/max_sum_sigmoids.pdf}
+
+\begin{itemize}
+\item
+  complete separation do not exist. observable metric ?, it is a
+  potential new topic to be able to identify whether complete separation
+  exists. possible discuss it in the Discussion and future work.
+\item
+  While working on this one, you may also consider implementing our
+  regressor paper.
+\end{itemize}
+
+\hypertarget{model-specification}{%
+\subsection{Model Specification}\label{model-specification}}
+
+\hypertarget{our-goal-is-to-estimate-the-graph-laplacian}{%
+\subsection{Our goal is to estimate the Graph
+Laplacian}\label{our-goal-is-to-estimate-the-graph-laplacian}}
+
+\begin{itemize}
+\tightlist
+\item
+  We do not have to use the eigenvector matrix \(\chi\). Instead, we may
+  consider adjacency matrix \(A\) in place of \(\chi\). This is a viable
+  direction.
+\end{itemize}
+
+Maximum Likelihood estimation, Quasi likelihood estimation,
+
+\end{document}

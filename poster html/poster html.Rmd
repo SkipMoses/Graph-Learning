@@ -1,42 +1,69 @@
 ---
-title: Generate Reproducible & Live HTML and PDF Conference Posters Using RMarkdown
+title: Graph Topology Learning from Binary Signals on Graph
 author:
-  - name: Brent Thorne
+  - name: Skip Moses
     affil: 1
-    orcid: '0000-0002-1099-3857'
-  - name: Another G. Author
-    affil: 2
+  - name: Jing Guo
+    affil: 1
+  - name: Robin Donatello
+    affil: 1
 affiliation:
   - num: 1
-    address: Department of Earth Science, Brock University
-  - num: 2
-    address: Department of Graphics and Layouts, University of Posters; Canada
+    address: Department of Mathematics and Statistics, California State University, Chico
 column_numbers: 3
-logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
-logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+# logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+# logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
 output: 
   posterdown::posterdown_html:
     self_contained: false
-bibliography: packages.bib
+bibliography: ref.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+# Abstract
+
+Data often has an underlying structure of geometry that can be modeled a signal on the vertices of a weighted, undirected graph. There are several analogies between traditional signal processing an algebraic graph theory that translates many of the tools of discrete signal processing such as spectral analysis of multichannel signals, system transfer function, and digital filter design to name a few. Historically, graph signal processing has focused on modeling smooth signals on a graph, but the increase in availability of abstract data sets has motivated algorithms for learning a valid graph given a set of signals. In this work we design a novel methodology for learning a valid graph topology given a set of binary signals on the graph. This is accomplished by extending the ideas of conditional logistic regression and maximum likelihood with constraints that enforce a valid graph topology.
+
 
 # Introduction
 
-Welcome to `posterdown` ! This is my attempt to provide a semi-smooth workflow for those who wish to take their R Markdown skills to the conference world. Most features from R Markdown are available in this package such as Markdown section notation, figure captioning, and even citations like this one [@R-rmarkdown]. The rest of this example poster will show how you can insert typical conference poster features into your own document. 
+Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints [@xia2021graph] [@dong2016learning] [ @ortega2018graph]. In previous research [@dong2016learning], [@tugnait2021sparse], [@pu2021learning], and [@saboksayr2021accelerated], signals on graph were assumed to follow multivariate gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a noval methodology that allows for learning graph topology given a set of binary signals on the graph. An example of such signals on graph is presented in Figure 1.
 
-## Objectives
-
-1. Easy to use reproducible poster design. 
-2. Integration with R Markdown.
-3. Easy transition from `posterdown` to `pagedown` report or manuscript documents [@R-pagedown].
+![Figure 1. Binary Signals on Graph](bgs.PNG){width=90%}
 
 # Methods
 
-This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown > Knitr > Markdown > Pandoc > HTML/CSS > PDF. You can even use the bibliography the same way [@R-posterdown].
+#### Signals on the graph and model specification
+We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix for the graph $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
+
+Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. 
+
+
+Suppose the signals at stratum $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at stratum $k$ denoted by $Y[,k ]$, for $j \neq k$. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+
+\begin{equation}
+\label{eq: binaryglm}
+\text{logit}(p_{i,j}) = \alpha_j + (\mathbf{A} h )_i,
+\end{equation}
+
+where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$ and assumed to be a standard normal random vector, and $\alpha_j$ is a round specific parameter at stratum $j$, and assumed to be normally distributed with mean of 0, and unknown variance $\sigma^2$. 
+
+#### Method of Estimation
+#####  Conditional likelihood for one stratum
+Let $O_j$ denote the set of nodes at stratum $j$ that have observed signals of 1, and let $Z_j$ denote the set of nodes at stratum $j$ that have observed signals of 0. Suppose the number of nodes that have signals of 1 at stratum $j$ is $k_j$. The conditional likelihood function based on model (\ref{eq:binaryglm}) for stratum $j$ of size $N$, is
+
+\begin{equation}
+	\label{eq:stratumlikelihood}
+	\begin{aligned}
+	&	P(Y_{lj} = 1 \text{ for } l \in O_j, Y_{mj} = 0 \text{ for } m \in Z_j | \sum_{i=1}^N Y_{ij} = k_j) \\   
+	& =  {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
+	\end{aligned}
+\end{equation}
+
+where $C_{k_j}^N$ is the set of all subsets of size $k_j$ of the set ${1, 2, \dots, N}$.
+This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown > Knitr > Markdown > Pandoc > HTML/CSS > PDF. You can even use the bibliography the same way [].
 
 # Results
 
@@ -68,7 +95,7 @@ plot(x = data$Sepal.Length,
 
 # Next Steps
 
-Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus [@R-posterdown].
+Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus [].
 
 # Conclusion
 

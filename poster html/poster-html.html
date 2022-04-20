@@ -19,7 +19,7 @@ Google fonts api stuff
 
 
 
-<title>Generate Reproducible &amp; Live HTML and PDF Conference Posters Using RMarkdown</title>
+<title>Graph Topology Learning from Binary Signals on Graph</title>
 
 <script src="poster-html_files/header-attrs-2.10/header-attrs.js"></script>
 
@@ -342,37 +342,61 @@ font-size: 20pt;
 <div class="title_container">
 <!-- Left Logo  -->
 <div class="logo_left">
-<img src= 'https://raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png' style="width: 80%">
 </div>
 <!-- Poster Title -->
 <div class= "poster_title">
-<h1 id="title">Generate Reproducible &amp; Live HTML and PDF Conference Posters Using RMarkdown</h1>
-<h3 id="author">Brent Thorne<sup>1, <a class="orcid" href="https://orcid.org/0000-0002-1099-3857"><img src="https://raw.githubusercontent.com/brentthorne/posterdown/master/images/orcid.jpg"></a></sup>, Another G. Author<sup>2</sup></h3><br>
-<h5 id="affiliation"><sup>1</sup> Department of Earth Science, Brock University<br> <sup>2</sup> Department of Graphics and Layouts, University of Posters; Canada</h5>
+<h1 id="title">Graph Topology Learning from Binary Signals on Graph</h1>
+<h3 id="author">Skip Moses<sup>1</sup>, Jing Guo<sup>1</sup>, Robin Donatello<sup>1</sup></h3><br>
+<h5 id="affiliation"><sup>1</sup> Department of Mathematics and Statistics, California State University, Chico</h5>
 </div>
 <!-- Right Logo  -->
 <div class="logo_right">
-<img src=https://raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png style="width: 80%">
 </div>
 </div>
 
 <div class='poster_body_wrap'>
 <div class='poster_body'>
+<div id="abstract" class="section level1">
+<h1>Abstract</h1>
+<p>Data often has an underlying structure of geometry that can be modeled a signal on the vertices of a weighted, undirected graph. There are several analogies between traditional signal processing an algebraic graph theory that translates many of the tools of discrete signal processing such as spectral analysis of multichannel signals, system transfer function, and digital filter design to name a few. Historically, graph signal processing has focused on modeling smooth signals on a graph, but the increase in availability of abstract data sets has motivated algorithms for learning a valid graph given a set of signals. In this work we design a novel methodology for learning a valid graph topology given a set of binary signals on the graph. This is accomplished by extending the ideas of conditional logistic regression and maximum likelihood with constraints that enforce a valid graph topology.</p>
+</div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>Welcome to <code>posterdown</code> ! This is my attempt to provide a semi-smooth workflow for those who wish to take their R Markdown skills to the conference world. Most features from R Markdown are available in this package such as Markdown section notation, figure captioning, and even citations like this one <span class="citation">(Allaire et al. 2021)</span>. The rest of this example poster will show how you can insert typical conference poster features into your own document.</p>
-<div id="objectives" class="section level2">
-<h2>Objectives</h2>
-<ol style="list-style-type: decimal">
-<li>Easy to use reproducible poster design.</li>
-<li>Integration with R Markdown.</li>
-<li>Easy transition from <code>posterdown</code> to <code>pagedown</code> report or manuscript documents <span class="citation">(Xie et al. 2022)</span>.</li>
-</ol>
+<p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Xia et al. 2021)</span> <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, <span class="citation">(Pu et al. 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a noval methodology that allows for learning graph topology given a set of binary signals on the graph. An example of such signals on graph is presented in Figure 1.</p>
+<div class="figure">
+<img src="bgs.PNG" style="width:90.0%" alt="" />
+<p class="caption">Figure 1. Binary Signals on Graph</p>
 </div>
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
-<p>This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown &gt; Knitr &gt; Markdown &gt; Pandoc &gt; HTML/CSS &gt; PDF. You can even use the bibliography the same way <span class="citation">(Thorne 2019)</span>.</p>
+<div id="signals-on-the-graph-and-model-specification" class="section level4">
+<h4>Signals on the graph and model specification</h4>
+<p>We consider a weighted undirected graph <span class="math inline">\(G = (V, E)\)</span>, with the vertices set <span class="math inline">\(V = {1, 2, \dots, N}\)</span>, and edge set <span class="math inline">\(E\)</span>. Let <span class="math inline">\(\mathbf{A}\)</span> denote the weighted adjacency matrix for the graph <span class="math inline">\(G\)</span>. In the case of weighted undirected graph, <span class="math inline">\(\mathbf{A}\)</span> is a square and symmetric matrix.</p>
+<p>Let <span class="math inline">\(Y_{i,j}\)</span> denote the signal on the node <span class="math inline">\(i\)</span> of graph <span class="math inline">\(G\)</span> at round <span class="math inline">\(j\)</span>, where <span class="math inline">\(j = 1, \dots, M\)</span>, and <span class="math inline">\(i = 1, \dots, N\)</span>. We assume that <span class="math inline">\(Y_{i,j}\)</span> is a binary signal that can be 1, or 0.</p>
+<p>Suppose the signals at stratum <span class="math inline">\(j\)</span> denoted by <span class="math inline">\(Y[, j]\)</span> for all <span class="math inline">\(N\)</span> nodes are independent of the signals at stratum <span class="math inline">\(k\)</span> denoted by <span class="math inline">\(Y[,k ]\)</span>, for <span class="math inline">\(j \neq k\)</span>. Let <span class="math inline">\(p_{i,j}\)</span> denote the probability of <span class="math inline">\(Y_{i,j} = 1\)</span>. Our model assumes</p>
+<p><span class="math display">\[\begin{equation}
+\label{eq: binaryglm}
+\text{logit}(p_{i,j}) = \alpha_j + (\mathbf{A} h )_i,
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\mathbf{A}\)</span> is the adjacency matrix from the graph <span class="math inline">\(G\)</span>, <span class="math inline">\(h\)</span> is a vector of latent factors that governs <span class="math inline">\(p_{i, j}\)</span> through <span class="math inline">\(\mathbf{A}\)</span> and assumed to be a standard normal random vector, and <span class="math inline">\(\alpha_j\)</span> is a round specific parameter at stratum <span class="math inline">\(j\)</span>, and assumed to be normally distributed with mean of 0, and unknown variance <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<div id="method-of-estimation" class="section level4">
+<h4>Method of Estimation</h4>
+<div id="conditional-likelihood-for-one-stratum" class="section level5">
+<h5>Conditional likelihood for one stratum</h5>
+<p>Let <span class="math inline">\(O_j\)</span> denote the set of nodes at stratum <span class="math inline">\(j\)</span> that have observed signals of 1, and let <span class="math inline">\(Z_j\)</span> denote the set of nodes at stratum <span class="math inline">\(j\)</span> that have observed signals of 0. Suppose the number of nodes that have signals of 1 at stratum <span class="math inline">\(j\)</span> is <span class="math inline">\(k_j\)</span>. The conditional likelihood function based on model () for stratum <span class="math inline">\(j\)</span> of size <span class="math inline">\(N\)</span>, is</p>
+<p><span class="math display">\[\begin{equation}
+    \label{eq:stratumlikelihood}
+    \begin{aligned}
+    &amp;   P(Y_{lj} = 1 \text{ for } l \in O_j, Y_{mj} = 0 \text{ for } m \in Z_j | \sum_{i=1}^N Y_{ij} = k_j) \\   
+    &amp; =  {\text{exp} (\sum_{l \in O_j}\mathbf{A}[l, ] h ) \over \sum_{J \in C_{k_j}^N} \text{exp} (\sum_{a \in J}\mathbf{A}[a, ] h ) },
+    \end{aligned}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(C_{k_j}^N\)</span> is the set of all subsets of size <span class="math inline">\(k_j\)</span> of the set <span class="math inline">\({1, 2, \dots, N}\)</span>.
+This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown &gt; Knitr &gt; Markdown &gt; Pandoc &gt; HTML/CSS &gt; PDF. You can even use the bibliography the same way [].</p>
+</div>
+</div>
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
@@ -565,7 +589,7 @@ Figure 2: Amazing, right?!
 </div>
 <div id="next-steps" class="section level1">
 <h1>Next Steps</h1>
-<p>Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus <span class="citation">(Thorne 2019)</span>.</p>
+<p>Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus [].</p>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
@@ -574,14 +598,23 @@ Figure 2: Amazing, right?!
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-R-rmarkdown" class="csl-entry">
-Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+<div id="ref-dong2016learning" class="csl-entry">
+Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. <span>“Learning Laplacian Matrix in Smooth Graph Signal Representations.”</span> <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.
 </div>
-<div id="ref-R-posterdown" class="csl-entry">
-Thorne, Brent. 2019. <em>Posterdown: Generate PDF Conference Posters Using r Markdown</em>. <a href="https://github.com/brentthorne/posterdown">https://github.com/brentthorne/posterdown</a>.
+<div id="ref-ortega2018graph" class="csl-entry">
+Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. <span>“Graph Signal Processing: Overview, Challenges, and Applications.”</span> <em>Proceedings of the IEEE</em> 106 (5): 808–28.
 </div>
-<div id="ref-R-pagedown" class="csl-entry">
-Xie, Yihui, Romain Lesur, Brent Thorne, and Xianying Tan. 2022. <em>Pagedown: Paginate the HTML Output of r Markdown with CSS for Print</em>. <a href="https://github.com/rstudio/pagedown">https://github.com/rstudio/pagedown</a>.
+<div id="ref-pu2021learning" class="csl-entry">
+Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. <span>“Learning to Learn Graph Topologies.”</span> <em>Advances in Neural Information Processing Systems</em> 34.
+</div>
+<div id="ref-saboksayr2021accelerated" class="csl-entry">
+Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. <span>“Accelerated Graph Learning from Smooth Signals.”</span> <em>IEEE Signal Processing Letters</em> 28: 2192–96.
+</div>
+<div id="ref-tugnait2021sparse" class="csl-entry">
+Tugnait, Jitendra K. 2021. <span>“Sparse Graph Learning Under Laplacian-Related Constraints.”</span> <em>IEEE Access</em> 9: 151067–79.
+</div>
+<div id="ref-xia2021graph" class="csl-entry">
+Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. <span>“Graph Learning: A Survey.”</span> <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.
 </div>
 </div>
 </div>
@@ -590,6 +623,19 @@ Xie, Yihui, Romain Lesur, Brent Thorne, and Xianying Tan. 2022. <em>Pagedown: Pa
 
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+var script = document.createElement("script");
+script.type = "text/javascript";
+var src = "true";
+if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+if (location.protocol !== "file:" && /^https?:/.test(src))
+src = src.replace(/^https?:/, '');
+script.src = src;
+document.getElementsByTagName("head")[0].appendChild(script);
+})();
+</script>
 
 
 </body>

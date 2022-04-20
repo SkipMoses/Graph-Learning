@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  19 APR 2022 15:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.12)  19 APR 2022 16:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -318,7 +318,8 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 File: l3backend-pdftex.def 2022-04-10 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count287
 \l__pdf_internal_box=\box53
-) (./model-specification.aux)
+)
+No file model-specification.aux.
 \openout1 = `model-specification.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
@@ -375,117 +376,24 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 69.
 LaTeX Info: Redefining \pageref on input line 69.
 LaTeX Info: Redefining \nameref on input line 69.
-(./model-specification.out) (./model-specification.out)
 \@outlinefile=\write3
 \openout3 = `model-specification.out'.
 
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: <default>
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-37.0pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=10.0pt
-* \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
-* \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 71.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 71.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 71.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 71.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 71.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 71.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 71.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 71.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 71.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 80.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 80.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 80.
-
-Package amsmath Warning: Foreign command \over;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 147.
-
-[1
-
-{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 196.
-(c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Overfull \hbox (0.21054pt too wide) in paragraph at lines 242--243
-[][]$\T1/lmr/m/n/10 (+2) https : / / conservancy . umn . edu / bitstream / handle / 11299 / 95957 / Choi _ umn _ 0130E _ 11451 . pdf ? sequence = 1 &
- []
-
-[2] [3] (./model-specification.aux)
-Package rerunfilecheck Info: File `model-specification.out' has not changed.
-(rerunfilecheck)             Checksum: 63296E5DA09329D82298021D19CCC40A;2314.
- ) 
+! I can't write on file `model-specification.pdf'.
+(Press Enter to retry, or Control-Z to exit; default file extension is `.pdf')
+Please type another file name for output
+! Emergency stop.
+<to be read again> 
+                   \edef 
+l.69 \begin{document}
+                      
 Here is how much of TeX's memory you used:
- 12718 strings out of 480198
- 205210 string characters out of 5891664
- 536413 words of memory out of 5000000
- 30349 multiletter control sequences out of 15000+600000
- 534445 words of font info for 129 fonts, out of 8000000 for 9000
+ 12259 strings out of 480198
+ 196723 string characters out of 5891664
+ 514335 words of memory out of 5000000
+ 30115 multiletter control sequences out of 15000+600000
+ 472415 words of font info for 31 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,10n,63p,1016b,397s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/jguo2/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on model-specification.pdf (3 pages, 181073 bytes).
-PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
- 137 compressed objects within 2 object streams
- 36 named destinations out of 1000 (max. 500000)
- 39001 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 60i,1n,63p,1016b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
