@@ -21,9 +21,8 @@ Google fonts api stuff
 
 <title>Graph Topology Learning from Binary Signals on Graph</title>
 
-<script src="poster-html_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="poster-html_files/header-attrs-2.10/header-attrs.js"></script>
 
-<script src="poster-html_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -297,7 +296,7 @@ font-size: 20pt;
 <div class='poster_body'>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Xia et al. 2021)</span> <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, <span class="citation">(Pu et al. 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a noval methodology that allows for learning graph topology given a set of binary signals on the graph. An example of such signals on graph is presented in Figure 1.</p>
+<p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Xia et al. 2021)</span> <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, <span class="citation">(Pu et al. 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph. An example of such signals on graph is presented in Figure 1.</p>
 <div class="figure">
 <img src="pictures/gt_graph.png" style="width:90.0%" alt="" />
 <p class="caption">Figure 1. Binary Signals on Graph</p>
@@ -312,9 +311,9 @@ font-size: 20pt;
 <p>Suppose the signals at stratum <span class="math inline">\(j\)</span> denoted by <span class="math inline">\(Y[, j]\)</span> for all <span class="math inline">\(N\)</span> nodes are independent of the signals at stratum <span class="math inline">\(k\)</span> denoted by <span class="math inline">\(Y[,k ]\)</span>, for <span class="math inline">\(j \neq k\)</span>. Let <span class="math inline">\(p_{i,j}\)</span> denote the probability of <span class="math inline">\(Y_{i,j} = 1\)</span>. Our model assumes</p>
 <p><span class="math display">\[\begin{equation}
 \label{eq: binaryglm}
-\text{logit}(p_{i,j}) = \mathbf{A} h )_i,
+\text{logit}(p_{i,j}) = (\mathbf{A} h )_i,
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(\mathbf{A}\)</span> is the adjacency matrix from the graph <span class="math inline">\(G\)</span>, <span class="math inline">\(h\)</span> is a vector of latent factors that governs <span class="math inline">\(p_{i, j}\)</span> through <span class="math inline">\(\mathbf{A}\)</span> and assumed to be a standard normal random vector, and <span class="math inline">\(\alpha_j\)</span> is a round specific parameter at stratum <span class="math inline">\(j\)</span>, and assumed to be normally distributed with mean of 0, and unknown variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>where <span class="math inline">\(\mathbf{A}\)</span> is the adjacency matrix from the graph <span class="math inline">\(G\)</span>, <span class="math inline">\(h\)</span> is a vector of latent factors that governs <span class="math inline">\(p_{i, j}\)</span> through <span class="math inline">\(\mathbf{A}\)</span> and assumed to be a standard normal random vector.</p>
 </div>
 <div id="method-of-estimation" class="section level4">
 <h4>Method of Estimation</h4>
@@ -322,18 +321,19 @@ font-size: 20pt;
 <h5>Maximum likelihood for one stratum</h5>
 <p>Consider the proabability mass function for a given <span class="math inline">\(A\)</span> and signal <span class="math inline">\(y = Y[,k]\)</span>
 <span class="math display">\[\begin{align}
-P_{Ah}(y_i) &amp;= P^{y_i}(1-p)^{1-y_i} \\
-            &amp;= \left(\frac{e^{A[i,]h^T}}{1 + e^{A[i,]h^T}}\right)\left(1- \frac{e^{A[i,]h^T}}{1 + e^{A[i,]h^T}}\right)^{1-y_i} \\
-            &amp;= \left(\frac{e^{A[i,]h^T}}{1 + e^{A[i,]h^T}}\right)\left(\frac{1}{1 + e^{A[i,]h^T}}\right)^{1-y_i} \\
-            &amp;= \frac{e^{y(A[i,]h^T)}}{1 + e^{A[i,]h^T}}                     
+P_{Ah}(y_i) &amp;= p^{y_i}(1-p)^{1-y_i} \\
+            &amp;= \left(\frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{y_i}\left(1- \frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{1-y_i} \\
+            &amp;= \left(\frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{y_i}\left(\frac{1}{1 + e^{A[i,]h}}\right)^{1-y_i}   \\
+            &amp;= \frac{e^{y_iA[i,]h}}{1 + e^{A[i,]h}}
+            
 \end{align}\]</span></p>
 <p>Therefore, our Likelihood function will be given by</p>
 <p><span class="math display">\[\begin{align}
-\mathcal{L}(h) = \prod_{i=1}^N\frac{e^{y_i(A[i,]h^T)}}{1 + e^{A[i,]h^T}} 
+\mathcal{L}(h) = \prod_{i=1}^N\left(\frac{e^{y_iA[i,]h}}{1 + e^{A[i,]h}}\right)
 \end{align}\]</span></p>
 <p>In order to maximize we consider the natural logarithm of our likelihood</p>
 <p><span class="math display">\[\begin{align}
-\log(\mathcal{L}(h)) = \sum_{i=1}^N\left(y_i(A[i,]h^T) - \log(1 + e^{A[i,]h^T})\right)
+\log(\mathcal{L}(h)) = \sum_{i=1}^N\left(y_i(A[i,]h) - \log(1 + e^{A[i,]h})\right)
 \end{align}\]</span></p>
 </div>
 <div id="optimization-program" class="section level5">
@@ -342,7 +342,7 @@ P_{Ah}(y_i) &amp;= P^{y_i}(1-p)^{1-y_i} \\
 <p><span class="math display">\[\begin{equation}
 \label{eq:optimization}
 \begin{aligned}
-&amp;\max_{A,h} \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(A[i,]h^T) - \log(1 + e^{A[i,]h^T})\right) - \alpha \vert L \vert _ F \\
+&amp;\max_{A,h} \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(A[i,]h) - \log(1 + e^{A[i,]h})\right) - \alpha \vert L \vert _ F \\
 \textrm{s.t.} \quad  &amp;A_{i,j} = 0 \text{ if } i =j\\
                      &amp;A_{i,j} \geq 0 \text{ if } i \neq j\\
                      &amp;\mathbb{1}h^T = 0 \\
@@ -350,7 +350,7 @@ P_{Ah}(y_i) &amp;= P^{y_i}(1-p)^{1-y_i} \\
                      &amp;\min(h) \geq b
 \end{aligned}
 \end{equation}\]</span>
-where <span class="math inline">\(\alpha\)</span> is a tunning parameter for controlling the sparsity and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are tunning parameters for restricting the spread of the values of <span class="math inline">\(h\)</span>.</p>
+where <span class="math inline">\(\alpha\)</span> is a tuning parameter for controlling the sparsity and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are tuning parameters for restricting the spread of the values of <span class="math inline">\(h\)</span>.</p>
 <hr />
 <hr />
 <span class="math inline">\(\textbf{Algorithm 1:}\)</span> Estimate <span class="math inline">\(A\)</span> given <span class="math inline">\(Y\)</span>.
@@ -359,7 +359,7 @@ where <span class="math inline">\(\alpha\)</span> is a tunning parameter for con
 <span class="math display">\[\begin{align*}
 &amp;1) \textbf{ Input: } \text{ Input a signal } Y.\\
 &amp;2) \textbf{ Output: } \text{ Output an estimated } A.\\
-&amp;3) \textbf{ Initialization: } h_{i,0} \sim \mathcal{N}(0,1) \text{ for } $i = 1,\ldots, N$\\
+&amp;3) \textbf{ Initialization: } h_{i,0} \sim \mathcal{N}(0,1) \text{ for } i = 1,\ldots, N \\
 &amp;4) \textbf{ for } t = 1, \ldots, iter:\\
 &amp;5) \textbf{ Update } A \textbf{ given } h:\\
 &amp;6) \textbf{        Update } h \textbf{ given } A:\\
@@ -371,7 +371,7 @@ where <span class="math inline">\(\alpha\)</span> is a tunning parameter for con
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
-<p>In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Diciplined Concave Program that can be solved efficiently in Python with the CVXPY libarary. A random Erds-Reyni graph on <span class="math inline">\(N = 20\)</span> nodes and edge probability <span class="math inline">\(p = 0.2\)</span>. Heat maps of the ground truth adjacency matrix and estitmated adjacency matrix are given, along with circular embeddings of the ground truth and estimated graphs.</p>
+<p>In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library. A random Erds-Reyni graph on <span class="math inline">\(N = 20\)</span> nodes and edge probability <span class="math inline">\(p = 0.2\)</span>. Heat maps of the ground truth adjacency matrix and estimated adjacency matrix are given, along with circular embedding of the ground truth and estimated graphs.</p>
 <table>
 <thead>
 <tr class="header">
@@ -395,29 +395,33 @@ where <span class="math inline">\(\alpha\)</span> is a tunning parameter for con
 <h1>Discussion</h1>
 <p>Currently, GSP frameworks such as ours have limitations making them only practical in experimental settings. For instance, these frameworks require the input to be the entire graph. This automatically puts a harsh limit on the size of the graphs that can be learned. Another related limitation, is the availability of the algorithms used to learn the laplacian. In <span class="citation">Saboksayr and Mateos (2021)</span> the author shows fast proximal-gradient iterations can be applied to the framework given by <span class="citation">Kalofolias (2016)</span> converges to a globally optimal solution in <span class="math inline">\(O (1/k)\)</span>. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues.</p>
 </div>
+<div id="acknowledgement" class="section level1">
+<h1>Acknowledgement</h1>
+<p>This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises.</p>
+</div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
-<div id="refs" class="references hanging-indent">
-<div id="ref-dong2016learning">
-<p>Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. “Learning Laplacian Matrix in Smooth Graph Signal Representations.” <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-dong2016learning" class="csl-entry">
+Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. <span>“Learning Laplacian Matrix in Smooth Graph Signal Representations.”</span> <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.
 </div>
-<div id="ref-kalofolias2016learn">
-<p>Kalofolias, Vassilis. 2016. “How to Learn a Graph from Smooth Signals.” In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.</p>
+<div id="ref-kalofolias2016learn" class="csl-entry">
+Kalofolias, Vassilis. 2016. <span>“How to Learn a Graph from Smooth Signals.”</span> In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.
 </div>
-<div id="ref-ortega2018graph">
-<p>Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. “Graph Signal Processing: Overview, Challenges, and Applications.” <em>Proceedings of the IEEE</em> 106 (5): 808–28.</p>
+<div id="ref-ortega2018graph" class="csl-entry">
+Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. <span>“Graph Signal Processing: Overview, Challenges, and Applications.”</span> <em>Proceedings of the IEEE</em> 106 (5): 808–28.
 </div>
-<div id="ref-pu2021learning">
-<p>Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. “Learning to Learn Graph Topologies.” <em>Advances in Neural Information Processing Systems</em> 34.</p>
+<div id="ref-pu2021learning" class="csl-entry">
+Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. <span>“Learning to Learn Graph Topologies.”</span> <em>Advances in Neural Information Processing Systems</em> 34.
 </div>
-<div id="ref-saboksayr2021accelerated">
-<p>Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. “Accelerated Graph Learning from Smooth Signals.” <em>IEEE Signal Processing Letters</em> 28: 2192–6.</p>
+<div id="ref-saboksayr2021accelerated" class="csl-entry">
+Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. <span>“Accelerated Graph Learning from Smooth Signals.”</span> <em>IEEE Signal Processing Letters</em> 28: 2192–96.
 </div>
-<div id="ref-tugnait2021sparse">
-<p>Tugnait, Jitendra K. 2021. “Sparse Graph Learning Under Laplacian-Related Constraints.” <em>IEEE Access</em> 9: 151067–79.</p>
+<div id="ref-tugnait2021sparse" class="csl-entry">
+Tugnait, Jitendra K. 2021. <span>“Sparse Graph Learning Under Laplacian-Related Constraints.”</span> <em>IEEE Access</em> 9: 151067–79.
 </div>
-<div id="ref-xia2021graph">
-<p>Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. “Graph Learning: A Survey.” <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.</p>
+<div id="ref-xia2021graph" class="csl-entry">
+Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. <span>“Graph Learning: A Survey.”</span> <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.
 </div>
 </div>
 </div>
