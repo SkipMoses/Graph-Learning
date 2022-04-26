@@ -21,8 +21,9 @@ Google fonts api stuff
 
 <title>Graph Topology Learning from Binary Signals on Graph</title>
 
-<script src="poster-html_files/header-attrs-2.10/header-attrs.js"></script>
+<script src="poster-html_files/header-attrs-2.11/header-attrs.js"></script>
 
+<script src="poster-html_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -319,7 +320,7 @@ font-size: 20pt;
 <h4>Method of Estimation</h4>
 <div id="maximum-likelihood-for-one-stratum" class="section level5">
 <h5>Maximum likelihood for one stratum</h5>
-<p>Consider the proabability mass function for a given <span class="math inline">\(A\)</span> and signal <span class="math inline">\(y = Y[,k]\)</span>
+<p>Consider the probability mass function for a given <span class="math inline">\(A\)</span> and signal <span class="math inline">\(y = Y[,k]\)</span>
 <span class="math display">\[\begin{align}
 P_{Ah}(y_i) &amp;= p^{y_i}(1-p)^{1-y_i} \\
             &amp;= \left(\frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{y_i}\left(1- \frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{1-y_i} \\
@@ -372,23 +373,15 @@ where <span class="math inline">\(\alpha\)</span> is a tuning parameter for cont
 <div id="results" class="section level1">
 <h1>Results</h1>
 <p>In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library. A random Erds-Reyni graph on <span class="math inline">\(N = 20\)</span> nodes and edge probability <span class="math inline">\(p = 0.2\)</span>. Heat maps of the ground truth adjacency matrix and estimated adjacency matrix are given, along with circular embedding of the ground truth and estimated graphs.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">Ground Truth</th>
-<th align="center">Estimation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><img src="pictures/gt_A_heatmap.png" style="width:125.0%" /></td>
-<td align="center"><img src="pictures/est_A_heatmap.png" style="width:125.0%" /></td>
-</tr>
-</tbody>
-</table>
+<div id="synthetic-data-generation" class="section level5">
+<h5>Synthetic Data Generation</h5>
+<p>To generate a single signal for a given adjacency matrix <span class="math inline">\(A \in \mathbb{R}^{N\times N}\)</span> and latent factor vector <span class="math inline">\(h \in \mathbb{R}^N\)</span> (each <span class="math inline">\(h_i \sim \mathcal{N}(0,1)\)</span>), a vector of odds, <span class="math inline">\(Ah\)</span>, is compared to a vector <span class="math inline">\(T\)</span>, where <span class="math inline">\(T_i\)</span> selected uniformly at random for each <span class="math inline">\(i = 1, \ldots , N\)</span>. If <span class="math inline">\(T_k &lt; Ah_k\)</span>, then node <span class="math inline">\(k\)</span> takes the signal value of <span class="math inline">\(1\)</span>, and <span class="math inline">\(0\)</span> otherwise. We generate <span class="math inline">\(M = 100\)</span> synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values <span class="math inline">\(\alpha = .2\)</span>, <span class="math inline">\(a = 1\)</span> and <span class="math inline">\(b = -1\)</span>.</p>
+<p>     <strong>Ground Truth</strong>                                  <strong>Learned</strong></p>
+<p><img src="pictures/gt_A_heatmap.png" style="width:45.0%" /> <img src="pictures/est_A_heatmap.png" style="width:45.0%" /></p>
 <div class="figure">
 <img src="pictures/est_graph.png" style="width:90.0%" alt="" />
 <p class="caption">Figure 2: Estimated Graph</p>
+</div>
 </div>
 </div>
 <div id="discussion" class="section level1">
@@ -401,27 +394,27 @@ where <span class="math inline">\(\alpha\)</span> is a tuning parameter for cont
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-dong2016learning" class="csl-entry">
-Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. <span>“Learning Laplacian Matrix in Smooth Graph Signal Representations.”</span> <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.
+<div id="refs" class="references hanging-indent">
+<div id="ref-dong2016learning">
+<p>Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. “Learning Laplacian Matrix in Smooth Graph Signal Representations.” <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.</p>
 </div>
-<div id="ref-kalofolias2016learn" class="csl-entry">
-Kalofolias, Vassilis. 2016. <span>“How to Learn a Graph from Smooth Signals.”</span> In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.
+<div id="ref-kalofolias2016learn">
+<p>Kalofolias, Vassilis. 2016. “How to Learn a Graph from Smooth Signals.” In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.</p>
 </div>
-<div id="ref-ortega2018graph" class="csl-entry">
-Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. <span>“Graph Signal Processing: Overview, Challenges, and Applications.”</span> <em>Proceedings of the IEEE</em> 106 (5): 808–28.
+<div id="ref-ortega2018graph">
+<p>Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. “Graph Signal Processing: Overview, Challenges, and Applications.” <em>Proceedings of the IEEE</em> 106 (5): 808–28.</p>
 </div>
-<div id="ref-pu2021learning" class="csl-entry">
-Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. <span>“Learning to Learn Graph Topologies.”</span> <em>Advances in Neural Information Processing Systems</em> 34.
+<div id="ref-pu2021learning">
+<p>Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. “Learning to Learn Graph Topologies.” <em>Advances in Neural Information Processing Systems</em> 34.</p>
 </div>
-<div id="ref-saboksayr2021accelerated" class="csl-entry">
-Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. <span>“Accelerated Graph Learning from Smooth Signals.”</span> <em>IEEE Signal Processing Letters</em> 28: 2192–96.
+<div id="ref-saboksayr2021accelerated">
+<p>Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. “Accelerated Graph Learning from Smooth Signals.” <em>IEEE Signal Processing Letters</em> 28: 2192–6.</p>
 </div>
-<div id="ref-tugnait2021sparse" class="csl-entry">
-Tugnait, Jitendra K. 2021. <span>“Sparse Graph Learning Under Laplacian-Related Constraints.”</span> <em>IEEE Access</em> 9: 151067–79.
+<div id="ref-tugnait2021sparse">
+<p>Tugnait, Jitendra K. 2021. “Sparse Graph Learning Under Laplacian-Related Constraints.” <em>IEEE Access</em> 9: 151067–79.</p>
 </div>
-<div id="ref-xia2021graph" class="csl-entry">
-Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. <span>“Graph Learning: A Survey.”</span> <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.
+<div id="ref-xia2021graph">
+<p>Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. “Graph Learning: A Survey.” <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.</p>
 </div>
 </div>
 </div>

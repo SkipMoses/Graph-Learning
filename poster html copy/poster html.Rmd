@@ -53,7 +53,7 @@ where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector o
 #### Method of Estimation
 ##### Maximum likelihood for one stratum
 
-Consider the proabability mass function for a given $A$ and signal $y = Y[,k]$
+Consider the probability mass function for a given $A$ and signal $y = Y[,k]$
 \begin{align}
 P_{Ah}(y_i) &= p^{y_i}(1-p)^{1-y_i} \\
             &= \left(\frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{y_i}\left(1- \frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{1-y_i} \\
@@ -120,9 +120,13 @@ $\textbf{Algorithm 1:}$ Estimate $A$ given $Y$.
 
 In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library. A random Erd\H{o}s-Reyni graph on $N = 20$ nodes and edge probability $p = 0.2$. Heat maps of the ground truth adjacency matrix and estimated adjacency matrix are given, along with circular embedding of the ground truth and estimated graphs.
 
-Ground Truth               |  Estimation 
-:-------------------------:|:-------------------------:
-![](pictures/gt_A_heatmap.png){width=125%}  |  ![](pictures/est_A_heatmap.png){width=125%}
+##### Synthetic Data Generation
+
+To generate a single signal for a given adjacency matrix $A \in \mathbb{R}^{N\times N}$ and latent factor vector $h \in \mathbb{R}^N$ (each $h_i \sim \mathcal{N}(0,1)$), a vector of odds, $Ah$, is compared to a vector $T$, where $T_i$ selected uniformly at random for each $i = 1, \ldots , N$. If $T_k < Ah_k$, then node $k$ takes the signal value of $1$, and $0$ otherwise. We generate $M = 100$ synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values $\alpha = .2$, $a = 1$ and $b = -1$. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Ground Truth** &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Learned**
+
+![](pictures/gt_A_heatmap.png){width=45%}  ![](pictures/est_A_heatmap.png){width=45%}
 
 
 ![Figure 2: Estimated Graph](pictures/est_graph.png){width=90%}
