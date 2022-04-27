@@ -299,7 +299,7 @@ font-size: 20pt;
 <h1>Introduction</h1>
 <p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Xia et al. 2021)</span> <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, <span class="citation">(Pu et al. 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph. An example of such signals on graph is presented in Figure 1.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:GTG"></span>
-<img src="pictures/gt_graph.png" alt="Circular Embedding of ground truth graph" width="90%" height="20%" />
+<img src="pictures/gt_graph.png" alt="Circular Embedding of ground truth graph" width="80%" height="20%" />
 <p class="caption">
 Figure 1: Circular Embedding of ground truth graph
 </p>
@@ -354,11 +354,7 @@ P_{Ah}(y_i) &amp;= p^{y_i}(1-p)^{1-y_i} \\
 \end{aligned}
 \end{equation}\]</span>
 where <span class="math inline">\(\alpha\)</span> is a tuning parameter for controlling the sparsity and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are tuning parameters for restricting the spread of the values of <span class="math inline">\(h\)</span>.</p>
-<hr />
-<hr />
-<span class="math inline">\(\textbf{Algorithm 1:}\)</span> Estimate <span class="math inline">\(A\)</span> given <span class="math inline">\(Y\)</span>.
-<hr />
-<hr />
+<p><span class="math inline">\(\textbf{Algorithm 1:}\)</span> Estimate <span class="math inline">\(A\)</span> given <span class="math inline">\(Y\)</span>.</p>
 <span class="math display">\[\begin{align*}
 &amp;1) \textbf{ Input: } \text{ Input a signal } Y.\\
 &amp;2) \textbf{ Output: } \text{ Output an estimated } A.\\
@@ -377,8 +373,7 @@ where <span class="math inline">\(\alpha\)</span> is a tuning parameter for cont
 <p>In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library. We use a random Erdős-Reyni graph on <span class="math inline">\(N = 20\)</span> nodes and edge probability <span class="math inline">\(p = 0.2\)</span>. Each edge weight <span class="math inline">\(w_i \sim \mathcal{U}(0,1)\)</span>.</p>
 <div id="synthetic-data-generation" class="section level5">
 <h5>Synthetic Data Generation</h5>
-<p>To generate a single signal for a given adjacency matrix <span class="math inline">\(A \in \mathbb{R}^{N\times N}\)</span> and latent factor vector <span class="math inline">\(h \in \mathbb{R}^N\)</span> (each <span class="math inline">\(h_i \sim \mathcal{N}(0,1)\)</span>), a vector of odds, <span class="math inline">\(Ah\)</span>, is compared to a vector <span class="math inline">\(T\)</span>, where <span class="math inline">\(T_i\)</span> selected uniformly at random for each <span class="math inline">\(i = 1, \ldots , N\)</span>. If <span class="math inline">\(T_k &lt; Ah_k\)</span>, then node <span class="math inline">\(k\)</span> takes the signal value of <span class="math inline">\(1\)</span>, and <span class="math inline">\(0\)</span> otherwise. We generate <span class="math inline">\(M = 100\)</span> synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values <span class="math inline">\(\alpha = .2\)</span>, <span class="math inline">\(a = 1\)</span> and <span class="math inline">\(b = -1\)</span>.</p>
-<p>Heat maps of the ground truth adjacency matrix and estimated adjacency matrix are given in Figure 2, along with circular embedding of the ground truth and estimated graphs in Figure 3.</p>
+<p>To generate a single signal for a given adjacency matrix <span class="math inline">\(A \in \mathbb{R}^{N\times N}\)</span> and latent factor vector <span class="math inline">\(h \in \mathbb{R}^N\)</span> (each <span class="math inline">\(h_i \sim \mathcal{N}(0,1)\)</span>), a vector of odds, <span class="math inline">\(Ah\)</span>, is compared to a vector <span class="math inline">\(T\)</span>, where <span class="math inline">\(T_i\)</span> selected uniformly at random for each <span class="math inline">\(i = 1, \ldots , N\)</span>. If <span class="math inline">\(T_k &lt; Ah_k\)</span>, then node <span class="math inline">\(k\)</span> takes the signal value of <span class="math inline">\(1\)</span>, and <span class="math inline">\(0\)</span> otherwise. We generate <span class="math inline">\(M = 100\)</span> synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values <span class="math inline">\(\alpha = .2\)</span>, <span class="math inline">\(a = 1\)</span> and <span class="math inline">\(b = -1\)</span>. Heat maps of the ground truth adjacency matrix and estimated adjacency matrix are given in Figure 2, along with circular embedding of the ground truth and estimated graphs in Figure 3.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:HM"></span>
 <img src="pictures/gt_A_heatmap.png" alt="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix." width="49%" height="20%" /><img src="pictures/est_A_heatmap.png" alt="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix." width="49%" height="20%" />
 <p class="caption">
@@ -386,7 +381,7 @@ Figure 2: (Left) A heatmap of the ground truth adjacency matrix. (Right) A heatm
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:EAG"></span>
-<img src="pictures/est_graph.png" alt="Circular Embedding of Estimated graph" width="90%" height="20%" />
+<img src="pictures/est_graph.png" alt="Circular Embedding of Estimated graph" width="80%" height="20%" />
 <p class="caption">
 Figure 3: Circular Embedding of Estimated graph
 </p>
@@ -395,11 +390,11 @@ Figure 3: Circular Embedding of Estimated graph
 </div>
 <div id="discussion" class="section level1">
 <h1>Discussion</h1>
-<p>Currently, GSP frameworks such as ours have limitations. For instance, these frameworks require the input to be set of complete signals. This limits the size of graphs that can be learned. Another related limitation, is the scalability of the algorithms used to learn a topology for the graph. In <span class="citation">Saboksayr and Mateos (2021)</span> the author shows fast proximal-gradient iterations can be applied to the framework given by <span class="citation">Kalofolias (2016)</span> converges to a globally optimal solution in <span class="math inline">\(O (1/k)\)</span>. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues.</p>
+<p>One shortcoming of this framework is it requires the input to be a complete set of signals. This limits the size of graphs that can be learned. Another, is the scalability of the algorithms used to learn a topology for the graph. In <span class="citation">Saboksayr and Mateos (2021)</span> the author shows fast proximal-gradient iterations can be applied to the framework given by <span class="citation">Kalofolias (2016)</span> converges to a globally optimal solution in <span class="math inline">\(O (1/k)\)</span>. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues.</p>
 </div>
 <div id="acknowledgement" class="section level1">
 <h1>Acknowledgement</h1>
-<p>This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. This work would not have been possible without the guidence of Dr. Jing Guo. I am extremely grateful for all of meetings over the semester.</p>
+<p>This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you Dr. Robin Donatello for approving this project. This work would not have been possible without the guidence of Dr. Jing Guo. I am extremely grateful for all of meetings over the semester.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
