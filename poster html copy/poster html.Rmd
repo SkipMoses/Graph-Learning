@@ -10,7 +10,7 @@ primary_colour: "#9D2235"
 secondary_colour: "#FFFFFF"
 poster_height: "36in"
 poster_width: "60in"
-# logoright_name: 
+logoright_name: Chico-State-Flame-Cardinal300dpi.png
 # logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
 output: 
   posterdown::posterdown_html:
