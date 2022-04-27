@@ -2,6 +2,8 @@
 title: Graph Topology Learning from Binary Signals on Graph
 author:
   - name: Skip Moses
+  - name: Jing Guo
+  - name: Robin Donatello
 affiliation:
     address: Department of Mathematics and Statistics, California State University, Chico
 column_numbers: 4
@@ -9,7 +11,7 @@ primary_colour: "#9D2235"
 secondary_colour: "#FFFFFF"
 poster_height: "36in"
 poster_width: "60in"
-# logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+# logoright_name: 
 # logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
 output: 
   posterdown::posterdown_html:
@@ -23,19 +25,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Introduction
 
-Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints [@xia2021graph] [@dong2016learning] [ @ortega2018graph]. In previous research [@dong2016learning], [@tugnait2021sparse], [@pu2021learning], and [@saboksayr2021accelerated], signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph. An example of such signals on graph is presented in Figure 1.
+Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; learning a graph structure from a set of signals satisfying some constraints [@xia2021graph] [@dong2016learning] [ @ortega2018graph]. In previous research [@dong2016learning], [@tugnait2021sparse], [@pu2021learning], and [@saboksayr2021accelerated], signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph.
 
-```{r GTG, echo=FALSE,out.width="80%", out.height="20%",fig.cap="Circular Embedding of ground truth graph",fig.show='hold',fig.align='center'}
+```{r GTG, echo=FALSE,out.width="80%", out.height="20%",fig.cap="Circular Embedding of random Erd&#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/gt_graph.png"))
 ``` 
 
 # Methods
 
 #### Signals on the graph and model specification
-We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix for the graph $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
+We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix of $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
 
-Let $Y_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $Y_{i,j}$ is a binary signal that can be 1, or 0. 
-Suppose the signals at stratum $j$ denoted by $Y[, j]$ for all $N$ nodes are independent of the signals at stratum $k$ denoted by $Y[,k ]$, for $j \neq k$. Let $p_{i,j}$ denote the probability of $Y_{i,j} = 1$. Our model assumes
+Let $\mathbf{Y}_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $\mathbf{Y}_{i,j}$ is a binary signal that can be 1, or 0. 
+Suppose the signals at stratum $j$ denoted by $\mathbf{Y}[, j]$ for all $N$ nodes are independent of the signals at stratum $k$ denoted by $\mathbf{Y}[,k ]$, for $j \neq k$. Let $p_{i,j}$ denote the probability of $\mathbf{Y}_{i,j} = 1$. Our model assumes
 
 \begin{equation}
 \label{eq: binaryglm}
@@ -44,82 +46,82 @@ Suppose the signals at stratum $j$ denoted by $Y[, j]$ for all $N$ nodes are ind
 
 where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$ and assumed to be a standard normal random vector. 
 
-#### Method of Estimation
 ##### Maximum likelihood for one stratum
 
-Consider the probability mass function for a given $A$ and signal $y = Y[,k]$
+Consider the probability mass function for a given $\mathbf{A}$ and signal $y = \mathbf{Y}[,k]$
 \begin{align}
-P_{Ah}(y_i) &= p^{y_i}(1-p)^{1-y_i} \\
-            &= \left(\frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{y_i}\left(1- \frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{1-y_i} \\
-            &= \left(\frac{e^{A[i,]h}}{1 + e^{A[i,]h}}\right)^{y_i}\left(\frac{1}{1 + e^{A[i,]h}}\right)^{1-y_i}   \\
-            &= \frac{e^{y_iA[i,]h}}{1 + e^{A[i,]h}}
+P_{\mathbf{A}h}(y_i) &= p^{y_i}(1-p)^{1-y_i} \\
+            &= \left(\frac{e^{\mathbf{A}[i,]h}}{1 + e^{\mathbf{A}[i,]h}}\right)^{y_i}\left(1- \frac{e^{\mathbf{A}[i,]h}}{1 + e^{\mathbf{A}[i,]h}}\right)^{1-y_i} \\
+            &= \left(\frac{e^{\mathbf{A}[i,]h}}{1 + e^{\mathbf{A}[i,]h}}\right)^{y_i}\left(\frac{1}{1 + e^{\mathbf{A}[i,]h}}\right)^{1-y_i}   \\
+            &= \frac{e^{y_i\mathbf{A}[i,]h}}{1 + e^{\mathbf{A}[i,]h}}
             
 \end{align}
 
 Therefore, our Likelihood function will be given by 
 
 \begin{align}
-\mathcal{L}(h) = \prod_{i=1}^N\left(\frac{e^{y_iA[i,]h}}{1 + e^{A[i,]h}}\right)
+\mathcal{L}(h) = \prod_{i=1}^N\left(\frac{e^{y_i\mathbf{A}[i,]h}}{1 + e^{\mathbf{A}[i,]h}}\right)
 \end{align}
 
 In order to maximize we consider the natural logarithm of our likelihood
 
 \begin{align}
-\log(\mathcal{L}(h)) = \sum_{i=1}^N\left(y_i(A[i,]h) - \log(1 + e^{A[i,]h})\right)
+\log(\mathcal{L}(h)) = \sum_{i=1}^N\left(y_i(\mathbf{A}[i,]h) - \log(1 + e^{\mathbf{A}[i,]h})\right)
 \end{align}
   
 ##### Optimization Program
 
-Taking inspiration from the above derivation we will solve for estimated $A$ by maximizing the following
+Taking inspiration from the above derivation we will solve for estimated $\mathbf{A}$ by maximizing the following
 
 \begin{equation}
 \label{eq:optimization}
 \begin{aligned}
-&\max_{A,h} \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(A[i,]h) - \log(1 + e^{A[i,]h})\right) - \alpha \vert L \vert _ F \\
-\textrm{s.t.} \quad  &A_{i,j} = 0 \text{ if } i =j\\
-                     &A_{i,j} \geq 0 \text{ if } i \neq j\\
-                     &\mathbb{1}h^T = 0 \\
-                     &\max(h) \leq a \\
-                     &\min(h) \geq b
+&\max_{\mathbf{A},h} \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(\mathbf{A}[i,]h) - \log(1 + e^{\mathbf{A}[i,]h})\right) - \alpha \vert L \vert _ F \\
+\textrm{s.t.} \quad  &\mathbf{A}_{i,j} = 0 \text{ if } i =j;\,\, \mathbf{A}_{i,j} \geq 0 \text{ if } i \neq j\\
+                     &\max(h) \leq a ;  \,\, \min(h) \geq b \,\, \mathbb{1}h^T = 0  
 \end{aligned}
 \end{equation}
-where $\alpha$ is a tuning parameter for controlling the sparsity and $a$ and $b$ are tuning parameters for restricting the spread of the values of $h$. 
-
-$\textbf{Algorithm 1:}$ Estimate $A$ given $Y$.
-
+where $\alpha$ is a tuning parameter for controlling the sparsity and $\mathbf{A}$ and $b$ are tuning parameters for restricting the spread of the values of $h$. 
+<hr />
 \begin{align*}
-&1) \textbf{ Input: } \text{ Input a signal } Y.\\
-&2) \textbf{ Output: } \text{ Output an estimated } A.\\
+&\textbf{Algorithm: Binary Signal Representation} \\
+&1) \textbf{ Input: } \text{ Input a signal } \mathbf{Y}.\\
+&2) \textbf{ Output: } \text{ Output an estimated } \mathbf{A}.\\
 &3) \textbf{ Initialization: } h_{i,0} \sim \mathcal{N}(0,1) \text{ for } i = 1,\ldots, N \\
 &4) \textbf{ for } t = 1, \ldots, iter:\\
-&5) \textbf{ Update } A \textbf{ given } h:\\
-&6) \textbf{        Update } h \textbf{ given } A:\\
-&7) \textbf{ end for }
+&5) \textbf{ Update } \mathbf{A} \textbf{ given } h:\\
+&6) \,\,\,\, \textit{ Fix h in Optimization Program and solve \mathbf{A}} \\
+&7) \textbf{        Update } h \textbf{ given } \mathbf{A}:\\
+&8) \,\,\,\, \textit{ Fix } \mathbf{A} \text{ in Optimization Program and solve h} \\
+&9) \textbf{ end for }
 \end{align*}
 <hr /> 
 
 # Results
 
-In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library. We use a random Erd&#337;s-Reyni graph on $N = 20$ nodes and edge probability $p = 0.2$. Each edge weight $w_i \sim \mathcal{U}(0,1)$. 
+In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library. 
 
 ##### Synthetic Data Generation
 
-To generate a single signal for a given adjacency matrix $A \in \mathbb{R}^{N\times N}$ and latent factor vector $h \in \mathbb{R}^N$ (each $h_i \sim \mathcal{N}(0,1)$), a vector of odds, $Ah$, is compared to a vector $T$, where $T_i$ selected uniformly at random for each $i = 1, \ldots , N$. If $T_k < Ah_k$, then node $k$ takes the signal value of $1$, and $0$ otherwise. We generate $M = 100$ synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values $\alpha = .2$, $a = 1$ and $b = -1$. Heat maps of the ground truth adjacency matrix and estimated adjacency matrix are given in Figure 2, along with circular embedding of the ground truth and estimated graphs in Figure 3.
+Let $\mathbf{A}$ be the adjacency matrix of the graph in Figure \@ref(fig:GTG), and $h \in \mathbb{R}$ be such that $h_i \sim \mathcal{N}(0,1)$. Set $p = \mathbf{A}h$, and compare this to a vector $t$, where each $t_i$ follows a random uniform distribution $\mathcal{U}(0,1)$. If $t_k < p_k$, then node $k$ takes the signal value of $1$, and $0$ otherwise. We generate $M = 100$ synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values $\alpha = .2$, $a = 1$ and $b = -1$. 
 
-```{r HM, echo=FALSE,out.width="49%", out.height="20%",fig.cap="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix.",fig.show='hold',fig.align='center'}
+##### Graph Learning Results
+
+```{r HM, echo=FALSE,out.width="49%", out.height="20%",fig.cap="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix. We can see the learned adjacency matrix shares some similar features to the ground truth, but the learned adjacency matrix is sparser than the ground truth.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/gt_A_heatmap.png","pictures/est_A_heatmap.png"))
 ``` 
 
-```{r EAG, echo=FALSE,out.width="80%", out.height="20%",fig.cap="Circular Embedding of Estimated graph",fig.show='hold',fig.align='center'}
+```{r EAG, echo=FALSE,out.width="80%", out.height="20%",fig.cap="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/est_graph.png"))
 ``` 
 # Discussion
-One shortcoming of this framework is it requires the input to be a complete set of signals. This limits the size of graphs that can be learned. Another, is the scalability of the algorithms used to learn a topology for the graph. In @saboksayr2021accelerated the author shows fast proximal-gradient iterations can be applied to the framework given by @kalofolias2016learn converges to a globally optimal solution in $O (1/k)$. A natural next step would be to apply fast proximal-gradient iterations our framework to overcome scalability issues. 
+
+To our knowledge, this is the first work on learning graph topology from binary signals. We have developed a method to effectively learn the graph adjacency matrix from binary signals. This model can be easily extended for learning binomial signals in general. Incorporating parameter optimization techniques would be a natural improvement on this model. Moreover, it would be desirable to develop scalable algorithms that can be used to learn a topology for a large graph from signals. Recently, in @saboksayr2021accelerated the author shows fast proximal-gradient iterations can be applied to the framework given by @kalofolias2016learn improving the over-all runtime. 
 
 ```{r, include=FALSE}
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 # Acknowledgement
-This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you Dr. Robin Donatello for approving this project. This work would not have been possible without the guidence of Dr. Jing Guo. I am extremely grateful for all of meetings over the semester.
+This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises.
 
 # References
