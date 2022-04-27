@@ -3,7 +3,6 @@ title: Graph Topology Learning from Binary Signals on Graph
 author:
   - name: Skip Moses
   - name: Jing Guo
-  - name: Robin Donatello
 affiliation:
     address: Department of Mathematics and Statistics, California State University, Chico
 column_numbers: 4
@@ -122,6 +121,6 @@ To our knowledge, this is the first work on learning graph topology from binary 
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 # Acknowledgement
-This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises.
+This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work.
 
 # References
