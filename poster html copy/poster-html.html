@@ -21,9 +21,8 @@ Google fonts api stuff
 
 <title>Graph Topology Learning from Binary Signals on Graph</title>
 
-<script src="poster-html_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="poster-html_files/header-attrs-2.10/header-attrs.js"></script>
 
-<script src="poster-html_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -298,9 +297,9 @@ font-size: 20pt;
 <div class='poster_body'>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Xia et al. 2021)</span> <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, <span class="citation">(Pu et al. 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph.</p>
+<p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph as shown in Figure <a href="#fig:GTG">1</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:GTG"></span>
-<img src="pictures/gt_graph.png" alt="Circular Embedding of random Erd&amp;#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1." width="80%" height="20%" />
+<img src="pictures/gt_graph.png" alt="Circular Embedding of random Erd&amp;#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1." width="90%" height="25%" />
 <p class="caption">
 Figure 1: Circular Embedding of random Erdős-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1.
 </p>
@@ -340,24 +339,25 @@ P_{\mathbf{A}h}(y_i) &amp;= p^{y_i}(1-p)^{1-y_i} \\
 <div id="optimization-program" class="section level5">
 <h5>Optimization Program</h5>
 <p>Taking inspiration from the above derivation we will solve for estimated <span class="math inline">\(\mathbf{A}\)</span> by maximizing the following</p>
-<span class="math display">\[\begin{equation}
+<p><span class="math display">\[\begin{equation}
 \label{eq:optimization}
 \begin{aligned}
 &amp;\max_{\mathbf{A},h} \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(\mathbf{A}[i,]h) - \log(1 + e^{\mathbf{A}[i,]h})\right) - \alpha \vert L \vert _ F \\
 \textrm{s.t.} \quad  &amp;\mathbf{A}_{i,j} = 0 \text{ if } i =j;\,\, \mathbf{A}_{i,j} \geq 0 \text{ if } i \neq j\\
-                     &amp;\max(h) \leq a ;  \,\, \min(h) \geq b \,\, \mathbb{1}h^T = 0  
+                     &amp;\max(h) \leq a ;  \,\, \min(h) \geq b \,\, ; \mathbb{1}h^T = 0  
 \end{aligned}
 \end{equation}\]</span>
-where <span class="math inline">\(\alpha\)</span> is a tuning parameter for controlling the sparsity and <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(b\)</span> are tuning parameters for restricting the spread of the values of <span class="math inline">\(h\)</span>.
+where <span class="math inline">\(\alpha\)</span> is a tuning parameter for controlling the sparsity and <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(b\)</span> are tuning parameters for restricting the spread of the values of <span class="math inline">\(h\)</span>.</p>
+<p>We presented our optimization algorithm below. In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library.</p>
 <hr />
 <span class="math display">\[\begin{align*}
-&amp;\textbf{Algorithm: Binary Signal Representation} \\
+&amp;\textbf{Algorithm 1: Binary Signal Graph Learning} \\
 &amp;1) \textbf{ Input: } \text{ Input a signal } \mathbf{Y}.\\
 &amp;2) \textbf{ Output: } \text{ Output an estimated } \mathbf{A}.\\
 &amp;3) \textbf{ Initialization: } h_{i,0} \sim \mathcal{N}(0,1) \text{ for } i = 1,\ldots, N \\
 &amp;4) \textbf{ for } t = 1, \ldots, iter:\\
 &amp;5) \textbf{ Update } \mathbf{A} \textbf{ given } h:\\
-&amp;6) \,\,\,\, \textit{ Fix h in Optimization Program and solve \mathbf{A}} \\
+&amp;6) \,\,\,\, \textit{ Fix }  h \textit{ in Optimization Program and solve } \mathbf{A} \\
 &amp;7) \textbf{        Update } h \textbf{ given } \mathbf{A}:\\
 &amp;8) \,\,\,\, \textit{ Fix } \mathbf{A} \text{ in Optimization Program and solve h} \\
 &amp;9) \textbf{ end for }
@@ -368,21 +368,21 @@ where <span class="math inline">\(\alpha\)</span> is a tuning parameter for cont
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
-<p>In each iteration of step 5) and 6) of Algorithm 1, the optimization program gives a Disciplined Concave Program that can be solved efficiently in Python with the CVXPY library.</p>
 <div id="synthetic-data-generation" class="section level5">
 <h5>Synthetic Data Generation</h5>
-<p>Let <span class="math inline">\(\mathbf{A}\)</span> be the adjacency matrix of the graph in Figure <a href="#fig:GTG">1</a>, and <span class="math inline">\(h \in \mathbb{R}\)</span> be such that <span class="math inline">\(h_i \sim \mathcal{N}(0,1)\)</span>. Set <span class="math inline">\(p = \mathbf{A}h\)</span>, and compare this to a vector <span class="math inline">\(t\)</span>, where each <span class="math inline">\(t_i\)</span> follows a random uniform distribution <span class="math inline">\(\mathcal{U}(0,1)\)</span>. If <span class="math inline">\(t_k &lt; p_k\)</span>, then node <span class="math inline">\(k\)</span> takes the signal value of <span class="math inline">\(1\)</span>, and <span class="math inline">\(0\)</span> otherwise. We generate <span class="math inline">\(M = 100\)</span> synthetic signals, and use them to learn an adjacency matrix. The learned graph is found with parameter values <span class="math inline">\(\alpha = .2\)</span>, <span class="math inline">\(a = 1\)</span> and <span class="math inline">\(b = -1\)</span>.</p>
+<p>Let <span class="math inline">\(\mathbf{A}\)</span> be the adjacency matrix of the graph in Figure <a href="#fig:GTG">1</a>, and <span class="math inline">\(h \in \mathbb{R}\)</span> be such that <span class="math inline">\(h_i \sim \mathcal{N}(0,1)\)</span>. Set <span class="math inline">\(p\)</span> as a logistic function of <span class="math inline">\(\mathbf{A}h\)</span>, and compare <span class="math inline">\(p\)</span> to a vector <span class="math inline">\(t\)</span>, where each <span class="math inline">\(t_i\)</span> follows a random uniform distribution <span class="math inline">\(\mathcal{U}(0,1)\)</span>. If <span class="math inline">\(t_k &lt; p_k\)</span>, then node <span class="math inline">\(k\)</span> takes the signal value of <span class="math inline">\(1\)</span>, and <span class="math inline">\(0\)</span> otherwise. We generate <span class="math inline">\(M = 100\)</span> synthetic signals, and use them to learn an adjacency matrix.</p>
 </div>
 <div id="graph-learning-results" class="section level5">
 <h5>Graph Learning Results</h5>
+<p>The learned graph is found with parameter values <span class="math inline">\(\alpha = .2\)</span>, <span class="math inline">\(a = 1\)</span> and <span class="math inline">\(b = -1\)</span> by implementing Algorithm 1. We can see the learned adjacency matrix shares some similar features to the ground truth (Figure <a href="#fig:HM">2</a>), but the learned adjacency matrix is sparser than the ground truth (Figure <a href="#fig:HM">2</a> and Figure <a href="#fig:EAG">3</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:HM"></span>
-<img src="pictures/gt_A_heatmap.png" alt="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix. We can see the learned adjacency matrix shares some similar features to the ground truth, but the learned adjacency matrix is sparser than the ground truth." width="49%" height="20%" /><img src="pictures/est_A_heatmap.png" alt="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix. We can see the learned adjacency matrix shares some similar features to the ground truth, but the learned adjacency matrix is sparser than the ground truth." width="49%" height="20%" />
+<img src="pictures/gt_A_heatmap.png" alt="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix. " width="49%" height="20%" /><img src="pictures/est_A_heatmap.png" alt="(Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix. " width="49%" height="20%" />
 <p class="caption">
-Figure 2: (Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix. We can see the learned adjacency matrix shares some similar features to the ground truth, but the learned adjacency matrix is sparser than the ground truth.
+Figure 2: (Left) A heatmap of the ground truth adjacency matrix. (Right) A heatmap of the estimated adjacency matrix.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:EAG"></span>
-<img src="pictures/est_graph.png" alt="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth." width="80%" height="20%" />
+<img src="pictures/est_graph.png" alt="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth." width="60%" height="10%" />
 <p class="caption">
 Figure 3: Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth.
 </p>
@@ -395,31 +395,25 @@ Figure 3: Circular Embedding of Estimated graph. Note the overall weight of each
 </div>
 <div id="acknowledgement" class="section level1">
 <h1>Acknowledgement</h1>
-<p>This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work.</p>
+<p>This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
-<div id="refs" class="references hanging-indent">
-<div id="ref-dong2016learning">
-<p>Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. “Learning Laplacian Matrix in Smooth Graph Signal Representations.” <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-dong2016learning" class="csl-entry">
+Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. <span>“Learning Laplacian Matrix in Smooth Graph Signal Representations.”</span> <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.
 </div>
-<div id="ref-kalofolias2016learn">
-<p>Kalofolias, Vassilis. 2016. “How to Learn a Graph from Smooth Signals.” In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.</p>
+<div id="ref-kalofolias2016learn" class="csl-entry">
+Kalofolias, Vassilis. 2016. <span>“How to Learn a Graph from Smooth Signals.”</span> In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.
 </div>
-<div id="ref-ortega2018graph">
-<p>Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. “Graph Signal Processing: Overview, Challenges, and Applications.” <em>Proceedings of the IEEE</em> 106 (5): 808–28.</p>
+<div id="ref-ortega2018graph" class="csl-entry">
+Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. <span>“Graph Signal Processing: Overview, Challenges, and Applications.”</span> <em>Proceedings of the IEEE</em> 106 (5): 808–28.
 </div>
-<div id="ref-pu2021learning">
-<p>Pu, Xingyue, Tianyue Cao, Xiaoyun Zhang, Xiaowen Dong, and Siheng Chen. 2021. “Learning to Learn Graph Topologies.” <em>Advances in Neural Information Processing Systems</em> 34.</p>
+<div id="ref-saboksayr2021accelerated" class="csl-entry">
+Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. <span>“Accelerated Graph Learning from Smooth Signals.”</span> <em>IEEE Signal Processing Letters</em> 28: 2192–96.
 </div>
-<div id="ref-saboksayr2021accelerated">
-<p>Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. “Accelerated Graph Learning from Smooth Signals.” <em>IEEE Signal Processing Letters</em> 28: 2192–6.</p>
-</div>
-<div id="ref-tugnait2021sparse">
-<p>Tugnait, Jitendra K. 2021. “Sparse Graph Learning Under Laplacian-Related Constraints.” <em>IEEE Access</em> 9: 151067–79.</p>
-</div>
-<div id="ref-xia2021graph">
-<p>Xia, Feng, Ke Sun, Shuo Yu, Abdul Aziz, Liangtian Wan, Shirui Pan, and Huan Liu. 2021. “Graph Learning: A Survey.” <em>IEEE Transactions on Artificial Intelligence</em> 2 (2): 109–27.</p>
+<div id="ref-tugnait2021sparse" class="csl-entry">
+Tugnait, Jitendra K. 2021. <span>“Sparse Graph Learning Under Laplacian-Related Constraints.”</span> <em>IEEE Access</em> 9: 151067–79.
 </div>
 </div>
 </div>
