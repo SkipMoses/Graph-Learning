@@ -10,8 +10,8 @@ primary_colour: "#9D2235"
 secondary_colour: "#FFFFFF"
 poster_height: "36in"
 poster_width: "60in"
-logoright_name: Chico-State-Flame-Cardinal300dpi.png
-# logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+logoright_name: pictures/DSI_Hexbin_sticker_01.png
+#logoright_name: pictures/logo1.png
 output: 
   posterdown::posterdown_html:
     self_contained: false
@@ -22,11 +22,12 @@ bibliography: ref.bib
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+
 # Introduction
 
 Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; learning a graph structure from a set of signals satisfying some constraints [@dong2016learning] [ @ortega2018graph]. In previous research [@dong2016learning], [@tugnait2021sparse], and [@saboksayr2021accelerated], signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph as shown in Figure \@ref(fig:GTG). 
 
-```{r GTG, echo=FALSE,out.width="90%", out.height="25%",fig.cap="Circular Embedding of random Erd&#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1.",fig.show='hold',fig.align='center'}
+```{r GTG, echo=FALSE,out.width="80%", out.height="25%",fig.cap="Circular Embedding of random Erd&#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/gt_graph.png"))
 ``` 
 
@@ -111,7 +112,7 @@ The learned graph is found with parameter values $\alpha = .2$, $a = 1$ and $b =
 knitr::include_graphics(c("pictures/gt_A_heatmap.png","pictures/est_A_heatmap.png"))
 ``` 
 
-```{r EAG, echo=FALSE,out.width="60%", out.height="10%",fig.cap="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth.",fig.show='hold',fig.align='center'}
+```{r EAG, echo=FALSE,out.width="80%", out.height="25%",fig.cap="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/est_graph.png"))
 ``` 
 # Discussion
@@ -121,6 +122,16 @@ To our knowledge, this is the first work on learning graph topology from binary 
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 # Acknowledgement
-This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.
+
+ <body>      
+        <p style="color:black;font-size:24px;">This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.</p>    
+</body>
+
+
+```{r , echo=FALSE,out.width="60%", out.height="10%",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c("pictures/logo1.png"))
+``` 
 
 # References
+
+

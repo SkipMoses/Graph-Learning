@@ -21,8 +21,9 @@ Google fonts api stuff
 
 <title>Graph Topology Learning from Binary Signals on Graph</title>
 
-<script src="poster-html_files/header-attrs-2.10/header-attrs.js"></script>
+<script src="poster-html_files/header-attrs-2.11/header-attrs.js"></script>
 
+<script src="poster-html_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -289,7 +290,7 @@ font-size: 20pt;
 </div>
 <!-- Right Logo  -->
 <div class="logo_right">
-<img src=Chico-State-Flame-Cardinal300dpi.png style="width: 80%">
+<img src=pictures/DSI_Hexbin_sticker_01.png style="width: 80%">
 </div>
 </div>
 
@@ -299,7 +300,7 @@ font-size: 20pt;
 <h1>Introduction</h1>
 <p>Data often has an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; learning a graph structure from a set of signals satisfying some constraints <span class="citation">(Dong et al. 2016)</span> <span class="citation">(Ortega et al. 2018)</span>. In previous research <span class="citation">(Dong et al. 2016)</span>, <span class="citation">(Tugnait 2021)</span>, and <span class="citation">(Saboksayr and Mateos 2021)</span>, signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph as shown in Figure <a href="#fig:GTG">1</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:GTG"></span>
-<img src="pictures/gt_graph.png" alt="Circular Embedding of random Erd&amp;#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1." width="90%" height="25%" />
+<img src="pictures/gt_graph.png" alt="Circular Embedding of random Erd&amp;#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1." width="80%" height="25%" />
 <p class="caption">
 Figure 1: Circular Embedding of random Erdős-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1.
 </p>
@@ -382,7 +383,7 @@ Figure 2: (Left) A heatmap of the ground truth adjacency matrix. (Right) A heatm
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:EAG"></span>
-<img src="pictures/est_graph.png" alt="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth." width="60%" height="10%" />
+<img src="pictures/est_graph.png" alt="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth." width="80%" height="25%" />
 <p class="caption">
 Figure 3: Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth.
 </p>
@@ -395,25 +396,30 @@ Figure 3: Circular Embedding of Estimated graph. Note the overall weight of each
 </div>
 <div id="acknowledgement" class="section level1">
 <h1>Acknowledgement</h1>
-<p>This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.</p>
+<body>
+<p style="color:black;font-size:24px;">
+This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.
+</p>
+</body>
+<p><img src="pictures/logo1.png" width="60%" height="10%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-dong2016learning" class="csl-entry">
-Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. <span>“Learning Laplacian Matrix in Smooth Graph Signal Representations.”</span> <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.
+<div id="refs" class="references hanging-indent">
+<div id="ref-dong2016learning">
+<p>Dong, Xiaowen, Dorina Thanou, Pascal Frossard, and Pierre Vandergheynst. 2016. “Learning Laplacian Matrix in Smooth Graph Signal Representations.” <em>IEEE Transactions on Signal Processing</em> 64 (23): 6160–73.</p>
 </div>
-<div id="ref-kalofolias2016learn" class="csl-entry">
-Kalofolias, Vassilis. 2016. <span>“How to Learn a Graph from Smooth Signals.”</span> In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.
+<div id="ref-kalofolias2016learn">
+<p>Kalofolias, Vassilis. 2016. “How to Learn a Graph from Smooth Signals.” In <em>Artificial Intelligence and Statistics</em>, 920–29. PMLR.</p>
 </div>
-<div id="ref-ortega2018graph" class="csl-entry">
-Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. <span>“Graph Signal Processing: Overview, Challenges, and Applications.”</span> <em>Proceedings of the IEEE</em> 106 (5): 808–28.
+<div id="ref-ortega2018graph">
+<p>Ortega, Antonio, Pascal Frossard, Jelena Kovačević, José MF Moura, and Pierre Vandergheynst. 2018. “Graph Signal Processing: Overview, Challenges, and Applications.” <em>Proceedings of the IEEE</em> 106 (5): 808–28.</p>
 </div>
-<div id="ref-saboksayr2021accelerated" class="csl-entry">
-Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. <span>“Accelerated Graph Learning from Smooth Signals.”</span> <em>IEEE Signal Processing Letters</em> 28: 2192–96.
+<div id="ref-saboksayr2021accelerated">
+<p>Saboksayr, Seyed Saman, and Gonzalo Mateos. 2021. “Accelerated Graph Learning from Smooth Signals.” <em>IEEE Signal Processing Letters</em> 28: 2192–6.</p>
 </div>
-<div id="ref-tugnait2021sparse" class="csl-entry">
-Tugnait, Jitendra K. 2021. <span>“Sparse Graph Learning Under Laplacian-Related Constraints.”</span> <em>IEEE Access</em> 9: 151067–79.
+<div id="ref-tugnait2021sparse">
+<p>Tugnait, Jitendra K. 2021. “Sparse Graph Learning Under Laplacian-Related Constraints.” <em>IEEE Access</em> 9: 151067–79.</p>
 </div>
 </div>
 </div>
