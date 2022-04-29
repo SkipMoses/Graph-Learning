@@ -11,21 +11,49 @@ secondary_colour: "#FFFFFF"
 poster_height: "36in"
 poster_width: "60in"
 logoright_name: pictures/DSI_Hexbin_sticker_01.png
-#logoright_name: pictures/logo1.png
+logoleft_name: pictures/logo1.png
 output: 
   posterdown::posterdown_html:
     self_contained: false
 bibliography: ref.bib
 ---
 
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+<style>
+.poster_title {
+  width: 50%;
+  text-align: center;
+  float: left;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
 
+.logo_left {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo_right {
+  width: 9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+</style>
 
 # Introduction
 
-Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; learning a graph structure from a set of signals satisfying some constraints [@dong2016learning] [ @ortega2018graph]. In previous research [@dong2016learning], [@tugnait2021sparse], and [@saboksayr2021accelerated], signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph as shown in Figure \@ref(fig:GTG). 
+Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem: learning a graph structure from a set of signals satisfying some constraints [@dong2016learning] [ @ortega2018graph]. In previous research [@dong2016learning], [@tugnait2021sparse], and [@saboksayr2021accelerated], signals on graph were assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. In this work, we develop a novel methodology that allows for learning graph topology given a set of binary signals on the graph as shown in Figure \@ref(fig:GTG). 
 
 ```{r GTG, echo=FALSE,out.width="80%", out.height="25%",fig.cap="Circular Embedding of random Erd&#337;s-Reyni Graph with edge probability p = 0.2. Each edge weight follows uniform random distribution on (0,1). Grey nodes indicate a signal value of 0 and black nodes indicate a signal value of 1.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/gt_graph.png"))
@@ -124,13 +152,8 @@ knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 # Acknowledgement
 
  <body>      
-        <p style="color:black;font-size:24px;">This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.</p>    
+        <p style="color:black;font-size:32px;">This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Robin Donatello for approving this work for Data Science Capstone Project.</p>    
 </body>
-
-
-```{r , echo=FALSE,out.width="60%", out.height="10%",fig.show='hold',fig.align='center'}
-knitr::include_graphics(c("pictures/logo1.png"))
-``` 
 
 # References
 
