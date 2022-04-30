@@ -24,7 +24,7 @@ def detect_edges(L1, L2, threshhold):
     size = L1.shape[0]
     for i in range(0,size):
         for j in range(0,i):
-            if (abs(L1[i][j]) > threshhold) and L2[i][j] < 0 and abs(L2[i][j]) > threshhold:
+            if (abs(L1[i][j]) > threshhold) and L2[i][j] < 0:
                 count = count + 1
     return(count)
 
