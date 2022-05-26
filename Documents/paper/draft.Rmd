@@ -3,7 +3,7 @@ title: 'Draft: Learning Laplacian from Binomial Signals'
 author: "Skip Moses"
 date: "3/12/2022"
 output:
-  pdf_document: default
+  bookdown::pdf_document2: default
   html_document:
     df_print: paged
 cls: IEEEtran.cls
@@ -14,11 +14,11 @@ bibliography: ref.bib
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+# Introduction
 
 Data often has  an underlying structure or geometry that can be modeled as a signal on the vertices of a weighted, undirected graph. Traditionally, the emphasis was on using a underlying graph, or network, to understand the properties of signals over the vertices. Recently, there has been a surge in converse problem; of learning a graph structure from a set of signals satisfying some constraints @xia2021graph @stankovic2019vertex @ortega2018graph . A subset of graph learning that focuses on graph signal processing based methods deals with sampling, graph recovery and learning topological structure @xia2021graph. 
 
-The methods for learning topological structure fall into the categories of regression like models @dong2016learning, @tugnait2021sparse, @pu2021learning, and @saboksayr2021accelerated, and machine learning techniques @pu2021kernel, @kalofolias2016learn, and  @venkitaraman2019predicting . In all of these models, signals are assumed to follow multivariate gaussian distributions, but there has been little exploration in learning a network from binomial signals. 
+The methods for learning topological structure fall into the categories of regression like models @dong2016learning, @tugnait2021sparse, @pu2021learning, and @saboksayr2021accelerated, and machine learning techniques @pu2021kernel, @kalofolias2016learn, and  @venkitaraman2019predicting . In all of these models, signals are assumed to follow multivariate Gaussian distributions, but there has been little exploration in learning a network from binomial signals. 
 
 ## Related Work
 
@@ -36,9 +36,9 @@ where $h \in \mathbb{R}^N$ is the latent variable, $\mu_x \in \mathbb{R}^N$ mean
 	\end{aligned}
 \end{equation}
 
-Because \ref{eq:dongmodel} is not jointly convex, Dong et al. employ an alternating minimization scheme to solve the problem. Initially, set $Y = X$ and we find a suitable $L$ by solving 
+Because (\ref{eq:dongmodel}) is not jointly convex, Dong et al. employ an alternating minimization scheme to solve the problem. Initially, set $Y = X$ and we find a suitable $L$ by solving 
 \begin{equation}
-	\label{eq:dong:prob1}
+	\label{eq:dongprob1}
 	\begin{aligned}
 		\min_L       & \phantom{..} \alpha \text{tr}(Y^TLY) + \beta ||L||_F^2, \\
 		\textrm{s.t.}& \quad \text{tr}(L) = N,\\
@@ -47,15 +47,15 @@ Because \ref{eq:dongmodel} is not jointly convex, Dong et al. employ an alternat
 	\end{aligned}
 \end{equation}
 
-Next, using $L$ from the first step we solve 
+Next, using $L$ from (\ref{eq:dongprob1}), we solve 
 \begin{equation}
-	\label{eq:dong:prob2}
+	\label{eq:dongprob2}
 	\begin{aligned}
 		\min_Y \phantom{..} ||X-Y||_F^2 + \alpha \text{tr}(Y^TLY)
 	\end{aligned}
 \end{equation}
 
-Both \ref{eq:dong:prob1} and \ref{eq:dong:prob2} can be cast as convex optimization problems. Specifically, \ref{eq:dong:prob1} can be solved with the method of alternating direction of multipliers (ADMM). The model is applied to both synthetic and real world data, and compared to a technique used in machine learning that is similar to sparse inverse covariance estimation of Gaussian Markov Random Field models. Four evaluation criteria were used  to evaluate the performance of the framework: $\textit{Precision, Recall, F-measure,}$ and $\textit{Normalized Mutual Information (NMI)}$. Kalofolias cites two weaknesses to this model: The use of the Frobenius norm is not amenable to interpretation, and it requires four constraints on the solution space @kalofolias2016learn. 
+Both (\ref{eq:dongprob1}) and (\ref{eq:dongprob2}) can be cast as convex optimization problems. Specifically, \ref{eq:dongprob1} can be solved with the method of alternating direction of multipliers (ADMM). The model is applied to both synthetic and real world data, and compared to a technique used in machine learning that is similar to sparse inverse covariance estimation of Gaussian Markov Random Field models. Four evaluation criteria were used  to evaluate the performance of the framework: $\textit{Precision, Recall, F-measure,}$ and $\textit{Normalized Mutual Information (NMI)}$. Kalofolias cites two weaknesses to this model: The use of the Frobenius norm is not amenable to interpretation, and it requires four constraints on the solution space @kalofolias2016learn. 
 
 In @kalofolias2016learn, Kalofolias provides complementary ideas to improve on the work of Dong et al. In particular, Kalofolias considers the more natural problem of leaning the weighted adjacency matrix $A$, and show an extra smoothness condition leads to the learned graph being sparse. Define, $Z$ to be the matrix of pairwise distances of the signal, namely, $Z_{i,j} = ||x_i - x_j||^2$. Under this definition we can recast our smoothness term as 
 \begin{equation}
@@ -113,7 +113,7 @@ Note that \ref{eq:quadraticform} is minimized when adjacent vertices have identi
 
 # Methods
 
-#### Signals on the graph and model specification
+## Signals on the graph and model specification
 We consider a weighted undirected graph $G = (V, E)$, with the vertices set $V = {1, 2, \dots, N}$, and edge set $E$.  Let $\mathbf{A}$ denote the weighted adjacency matrix of $G$. In the case of weighted undirected graph, $\mathbf{A}$ is a square and symmetric matrix. 
 
 Let $\mathbf{Y}_{i,j}$ denote the signal on the node $i$ of graph $G$ at round $j$, where $j = 1, \dots, M$, and $i = 1, \dots, N$. We assume that $\mathbf{Y}_{i,j}$ is a binary signal that can be 1, or 0. 
@@ -126,7 +126,7 @@ Suppose the signals at stratum $j$ denoted by $\mathbf{Y}[, j]$ for all $N$ node
 
 where $\mathbf{A}$ is the adjacency matrix from the graph $G$, $h$ is a vector of latent factors that governs $p_{i, j}$ through $\mathbf{A}$ and assumed to be a standard normal random vector. 
 
-##### Maximum likelihood for one stratum
+## Maximum likelihood for one stratum
 
 Consider the probability mass function for a given $\mathbf{A}$ and signal $y = \mathbf{Y}[,k]$
 \begin{align}
@@ -148,7 +148,7 @@ In order to maximize we consider the natural logarithm of our likelihood
 \log(\mathcal{L}(h)) = \sum_{i=1}^N\left(y_i(\mathbf{A}[i,]h) - \log(1 + e^{\mathbf{A}[i,]h})\right)
 \end{align}
   
-##### Optimization Program
+## Optimization Program
 
 Taking inspiration from the above derivation we will solve for estimated $\mathbf{A}$ by maximizing the following
 
@@ -178,9 +178,9 @@ We presented our optimization algorithm below. In each iteration of step 5) and 
 &9) \textbf{ end for }
 \end{align*}
 <hr /> 
-\newpage
+
 # Results
-### Synthetic Data Generation
+## Synthetic Data Generation
 
 
 ```{r GTG, echo=FALSE,out.width="80%", out.height="25%",fig.cap ="The ground truth graph with an example signal shown.",fig.show='hold',fig.align='center'}
@@ -189,7 +189,7 @@ knitr::include_graphics(c("pictures/gt_graph.png"))
 
 Let $\mathbf{A}$ be the adjacency matrix of the graph in Figure \@ref(fig:GTG), and $h \in \mathbb{R}$ be such that $h_i \sim \mathcal{N}(0,1)$. Set $p$ as a logistic function of $\mathbf{A}h$, and compare $p$ to a vector $t$, where each $t_i$ follows a random uniform distribution $\mathcal{U}(0,1)$. If $t_k < p_k$, then node $k$ takes the signal value of $1$, and $0$ otherwise. We generate $M = 100$ synthetic signals, and use them to learn an adjacency matrix. 
 
-### Graph Learning Results 
+## Graph Learning Results 
 
 The learned graph is found with parameter values $\alpha = .2$, $a = 1$ and $b = -1$ by implementing Algorithm 1. We can see the learned adjacency matrix shares some similar features to the ground truth (left), but the learned adjacency matrix is sparser than the ground truth (right). 
 
@@ -200,6 +200,7 @@ knitr::include_graphics(c("pictures/gt_A_heatmap.png","pictures/est_A_heatmap.pn
 ```{r EAG, echo=FALSE,out.width="80%", out.height="25%",fig.cap="Circular Embedding of Estimated graph. Note the overall weight of each edge is smaller than the edge weights of the ground truth.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("pictures/est_graph.png"))
 ``` 
+
 # Discussion
 To our knowledge, this is the first work on learning graph topology from binary signals. We have developed a method to effectively learn the graph adjacency matrix from binary signals. This model can be easily extended for learning binomial signals in general. Incorporating parameter optimization techniques would be a natural improvement on this model. Moreover, it would be desirable to develop scalable algorithms that can be used to learn a topology for a large graph from signals. Recently, in @saboksayr2021accelerated the author shows fast proximal-gradient iterations can be applied to the framework given by @kalofolias2016learn improving the over-all runtime. 
 
@@ -214,5 +215,4 @@ his work is supported by Research, Scholarship, and Creative Activity (RSCA) Awa
 # References
 
 
-## References
 <div id="refs"></div>
