@@ -26,7 +26,7 @@ In this work, we suppose the odds of a node having a signal value of $1$ or $0$ 
 
 Dong et al. propose a modified factor analysis model in @dong2016learning for learning a valid graph laplacian. The model proposed is given by 
 $$x = \chi h + \mu_x + \epsilon$$
-where $h \sim \mathcal{N}(0, \Lambda^{\dagger})$ is the latent variable,$\Lambda$ is the eigenvalue matrix of $L$, and  $\mu_x \in \mathbb{R}^N$ mean of $x$. The noise term $\epsilon$ is assumed to follow a multivariate Gaussian distribution with mean zero and covariance $\sigma_\epsilon^2I_N$. The key difference from traditional factor analysis is the choice of $\chi$ as a valid eigenvector matrix for a graph laplacian. Finding a maximum apriori estimate of $h$ reduces to solving the optimization problem
+where $h \sim \mathcal{N}(0, \Lambda^{\dagger})$ is the latent variable,$\Lambda$ is the eigenvalue matrix of $L$, and  $\mu_x \in \mathbb{R}^N$ mean of $x$. The noise term $\epsilon$ is assumed to follow a multivariate Gaussian distribution with mean zero and covariance $\sigma_\epsilon^2I_N$. The key difference from traditional factor analysis is the choice of $\chi$ as a valid eigenvector matrix for a graph laplacian. Finding a maximum a posterior estimate of $h$ reduces to solving the optimization problem
 
 \begin{equation}
 	\label{eq:dongmodel}
@@ -170,9 +170,9 @@ We presented our optimization algorithm below. In each iteration of step 5) and 
 <hr />
 \begin{align*}
 &\textbf{Algorithm 1: Binary Signal Graph Learning} \\
-&1) \textbf{ Input: } \text{ Input a signal on a graph} \mathbf{Y}.\\
+&1) \textbf{ Input: } \text{ Input binary signals on a graph } \mathbf{Y}.\\
 &2) \textbf{ Output: } \text{ Output an estimated } \mathbf{A}.\\
-&3) \textbf{ Initialization: } h_{i,0} \sim \mathcal{N}(0,1) \text{ for } i = 1,\ldots, N \\
+&3) \textbf{ Initialization: } h_{i,0} \sim \mathcal{U}(-1,1) \text{ for } i = 1,\ldots, N \\
 &4) \textbf{ for } t = 1, \ldots, iter:\\
 &5) \textbf{ Update } \mathbf{A} \textbf{ given } h:\\
 &6) \,\,\,\, \textit{ Fix }  h \textit{ in Optimization Program and solve } \mathbf{A} \\
@@ -212,8 +212,10 @@ knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 # Acknowledgement
 
-his work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Dr. Robin Donatello, Ph.D., for approving this work for Data Science Capstone Project
+This work is supported by Research, Scholarship, and Creative Activity (RSCA) Award 2021-2022 through Chico State Enterprises. Thank you to Dr. Robin Donatello, Ph.D., for approving this work for Data Science Capstone Project
 
 \newpage
+
+# Reference {-}
 
 <div id="refs"></div>
