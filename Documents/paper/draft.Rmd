@@ -157,7 +157,7 @@ Taking inspiration from the above derivation we will solve for estimated $\mathb
 \begin{equation}
 \label{eq:optimization}
 \begin{aligned}
-\max_{\mathbf{A},h} \phantom{..}& \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(\mathbf{A}[i,]h) - \log(1 + e^{\mathbf{A}[i,]h})\right) - \alpha \vert A \vert _ F \\
+\max_{\mathbf{A},h} \phantom{..}& \sum_{j = 1}^M\sum_{i=1}^N\left(y_{i,j}(\mathbf{A}[i,]h) - \log(1 + e^{\mathbf{A}[i,]h})\right) - \alpha \vert L \vert _ F \\
 \textrm{s.t.}  & \quad \mathbf{A}_{i,j} = 0 \text{ if } i =j \\
                & \quad \mathbf{A}_{i,j} \geq 0 \text{ if } i \neq j\\
                & \quad h \sim \mathcal{U}(-1,1) 

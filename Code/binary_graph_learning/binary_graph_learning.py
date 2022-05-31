@@ -42,7 +42,7 @@ def binary_graph_learning(Y_noisy, alpha):
     constraints = [cp.diag(A_var) == 0,
                     A_var - cp.diag(cp.diag(A_var)) >= 0,
                   sum(A_var@np.ones(N)) == N]
-    A_obj = cp.Maximize(sum([term_given_w(y,h_init,A_var) for y in Y.T]) - alpha*cp.norm(Lap, 'fro'))
+    A_obj = cp.Maximize(sum([term_given_w(y,h_init,A_var) for y in Y.T]) - alpha*cp.norm(A_var, 'fro'))
 
     P_init = cp.Problem(A_obj, constraints)
     P_init.solve()
