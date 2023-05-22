@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 MAY 2023 12:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 MAY 2023 12:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**bare_jrnl.tex
-(./bare_jrnl.tex
+**GL_binary.tex
+(./GL_binary.tex
 LaTeX2e <2018-12-01>
 (./IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
@@ -606,8 +606,8 @@ File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 \c@example=\count148
 \c@remark=\count149
 
-(./bare_jrnl.aux)
-\openout1 = `bare_jrnl.aux'.
+No file GL_binary.aux.
+\openout1 = `GL_binary.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
 LaTeX Font Info:    ... okay on input line 69.
@@ -623,7 +623,6 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
 LaTeX Font Info:    ... okay on input line 69.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
 LaTeX Font Info:    ... okay on input line 69.
-
 -- Lines per column: 58 (exact).
 (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -673,10 +672,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 69.
 LaTeX Info: Redefining \pageref on input line 69.
 LaTeX Info: Redefining \nameref on input line 69.
-
-(./bare_jrnl.out) (./bare_jrnl.out)
 \@outlinefile=\write3
-\openout3 = `bare_jrnl.out'.
+\openout3 = `GL_binary.out'.
 
 LaTeX Font Info:    Try loading font information for U+msa on input line 74.
 
@@ -736,6 +733,21 @@ LaTeX Warning: Citation `dong2016learning' on page 2 undefined on input line 10
 0.
 
 
+LaTeX Warning: Reference `eq:dongmodel' on page 2 undefined on input line 118.
+
+
+LaTeX Warning: Reference `eq:dongprob1' on page 2 undefined on input line 129.
+
+
+LaTeX Warning: Reference `eq:dongprob1' on page 2 undefined on input line 137.
+
+
+LaTeX Warning: Reference `eq:dongprob2' on page 2 undefined on input line 137.
+
+
+LaTeX Warning: Reference `eq:dongprob1' on page 2 undefined on input line 137.
+
+
 LaTeX Warning: Citation `kalofolias2016learn' on page 2 undefined on input line
  137.
 
@@ -743,9 +755,23 @@ LaTeX Warning: Citation `kalofolias2016learn' on page 2 undefined on input line
 LaTeX Warning: Citation `kalofolias2016learn' on page 2 undefined on input line
  139.
 
+
+LaTeX Warning: Reference `eq:GLP' on page 2 undefined on input line 144.
+
 [2
 
 ]
+
+LaTeX Warning: Reference `eq:kalotransform' on page 3 undefined on input line 1
+60.
+
+
+LaTeX Warning: Reference `eq:dongmodel' on page 3 undefined on input line 160.
+
+
+LaTeX Warning: Reference `eq:kalotransform' on page 3 undefined on input line 1
+60.
+
 
 LaTeX Warning: Citation `venkitaraman2019predicting' on page 3 undefined on inp
 ut line 162.
@@ -755,11 +781,19 @@ LaTeX Warning: Citation `venkitaraman2019predicting' on page 3 undefined on inp
 ut line 172.
 
 
+LaTeX Warning: Reference `eq:quadraticform' on page 3 undefined on input line 1
+83.
+
+
+LaTeX Warning: Reference `eq:quadraticform' on page 3 undefined on input line 1
+83.
+
+
 LaTeX Warning: Citation `kalofolias2016learn' on page 3 undefined on input line
  183.
 
 [3]
-<pictures/gt_graph.png, id=115, 433.62pt x 289.08pt>
+<pictures/gt_graph.png, id=62, 433.62pt x 289.08pt>
 File: pictures/gt_graph.png Graphic file (type png)
 <use pictures/gt_graph.png>
 Package pdftex.def Info: pictures/gt_graph.png  used on input line 269.
@@ -768,12 +802,12 @@ Package pdftex.def Info: pictures/gt_graph.png  used on input line 269.
 
 LaTeX Warning: Reference `(' on page 4 undefined on input line 274.
 
-<pictures/gt_A_heatmap.png, id=117, 312.16624pt x 248.93pt>
+<pictures/gt_A_heatmap.png, id=64, 312.16624pt x 248.93pt>
 File: pictures/gt_A_heatmap.png Graphic file (type png)
 <use pictures/gt_A_heatmap.png>
 Package pdftex.def Info: pictures/gt_A_heatmap.png  used on input line 283.
 (pdftex.def)             Requested size: 100.79846pt x 80.3771pt.
-<pictures/est_A_heatmap.png, id=118, 312.16624pt x 248.93pt>
+<pictures/est_A_heatmap.png, id=65, 312.16624pt x 248.93pt>
 File: pictures/est_A_heatmap.png Graphic file (type png)
 <use pictures/est_A_heatmap.png>
 Package pdftex.def Info: pictures/est_A_heatmap.png  used on input line 286.
@@ -792,7 +826,7 @@ LaTeX Warning: Citation `kalofolias2016learn' on page 4 undefined on input line
 
 [4 <./pictures/gt_graph.png> <./pictures/gt_A_heatmap.png> <./pictures/est_A_he
 atmap.png>]
-No file bare_jrnl.bbl.
+No file GL_binary.bbl.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 310.
 - LAST -
 Extra skip:64.64992pt
@@ -801,12 +835,18 @@ Right:24.0pt/2.16492pt
 Output:81.32495pt
 [5]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 310.
- (./bare_jrnl.aux)
+ (./GL_binary.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 310.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 310.
-Package rerunfilecheck Info: File `bare_jrnl.out' has not changed.
-(rerunfilecheck)             Checksum: DFF8134C3F783D6E3A79E5893B65CDE1;752.
 
+
+Package rerunfilecheck Warning: File `GL_binary.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `GL_binary.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  DFF8134C3F783D6E3A79E5893B65CDE1;752.
 
 LaTeX Warning: There were undefined references.
 
@@ -816,10 +856,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 310.
  ) 
 Here is how much of TeX's memory you used:
- 10762 strings out of 492616
- 165355 string characters out of 6129482
+ 10743 strings out of 492616
+ 165092 string characters out of 6129482
  292076 words of memory out of 5000000
- 14474 multiletter control sequences out of 15000+600000
+ 14461 multiletter control sequences out of 15000+600000
  41793 words of font info for 84 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  36i,11n,39p,944b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -850,10 +890,10 @@ xmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/f
 onts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type
 1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/time
 s/utmri8a.pfb>
-Output written on bare_jrnl.pdf (5 pages, 238804 bytes).
+Output written on GL_binary.pdf (5 pages, 237955 bytes).
 PDF statistics:
- 204 PDF objects out of 1000 (max. 8388607)
- 172 compressed objects within 2 object streams
+ 156 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
  43 named destinations out of 1000 (max. 500000)
- 112 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
